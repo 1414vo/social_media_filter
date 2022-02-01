@@ -1,0 +1,17 @@
+#wordcloud{
+    display: block;
+    width: 60%;
+    position: fixed;
+    float: right;
+    top: 0;
+    right: 0;
+}
+
+#sidebar{
+    width: 30%;
+}
+
+.tweet{
+    display: block;
+    margin-bottom: 10%;
+}
