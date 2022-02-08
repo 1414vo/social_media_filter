@@ -3,4 +3,38 @@
     border-color: white;
     border-radius: 10px;
     margin: 10px;
+    padding: 5px;
+    text-align: center;
+}
+
+.red {
+    background-color: darkred;
+    color: white;
+    width: 100px;
+    height: 70px;
+    font-size: 15px;
+    line-height: 70px;
+}
+
+.yellow {
+    background-color: lightblue;
+    color: black;
+    width: 120px;
+    height: 90px;
+    font-size: 20px;
+    line-height: 90px;
+}
+
+.green {
+    background-color: green;
+    color: white;
+    width: 160px;
+    height: 120px;
+    font-size: 24px;
+    line-height: 120px;
+}
+
+.default {
+    background-color: gray;
+    color: black;
 }
