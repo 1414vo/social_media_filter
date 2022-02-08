@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import CategoryType from './models/CategoryType';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App categories={[CategoryType.Politics, CategoryType.Academic, CategoryType.Comedy]}/>
   </React.StrictMode>,
   document.getElementById('root')
 );

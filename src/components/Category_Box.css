@@ -12,8 +12,12 @@
     color: white;
     width: 100px;
     height: 70px;
-    font-size: 15px;
+    font-size: 18px;
     line-height: 70px;
+}
+
+.red:hover {
+    background-color: #700000;
 }
 
 .yellow {
@@ -21,8 +25,12 @@
     color: black;
     width: 120px;
     height: 90px;
-    font-size: 20px;
+    font-size: 24px;
     line-height: 90px;
+}
+
+.yellow:hover {
+    background-color: #9AC8D8;
 }
 
 .green {
@@ -30,8 +38,12 @@
     color: white;
     width: 160px;
     height: 120px;
-    font-size: 24px;
+    font-size: 28px;
     line-height: 120px;
+}
+
+.green:hover {
+    background-color: darkgreen;
 }
 
 .default {

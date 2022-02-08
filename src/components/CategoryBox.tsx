@@ -5,6 +5,7 @@ import './Category_Box.css';
 
 interface IBoxProps {
   category: CategoryType;
+  onClick: any;
 }
 interface IBoxState {
   value: Category;
@@ -32,7 +33,7 @@ class CategoryBox extends React.Component<IBoxProps, IBoxState> {
 
     render() {
         return (
-            <div className={`category_box ${this.getBoxStyle(this.state.value.categoryScore)}`}>
+            <div onClick={this.props.onClick} className={`category_box ${this.getBoxStyle(this.state.value.categoryScore)}`}>
               {CategoryType[this.state.value.category]}
             </div>
           );
