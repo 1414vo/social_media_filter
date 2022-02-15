@@ -1,0 +1,68 @@
+.App {
+  text-align: center;
+  width: 300px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  border-color: black;
+}
+
+.App-content {
+  background-color: #eaf8f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  flex-grow: 1; 
+}
+
+.App-header {
+  height: 10%;
+  background-color: #eaf8f5;
+  width: 100%;
+  display: flex;
+  gap: 4px;
+  justify-content: space-around;
+}
+
+.Header-tab {
+  flex-grow: 1; 
+  height: 100%;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.row {
+  width: 100%;
+  justify-content: center;
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column-1 {
+  float: left;
+  width: 25%;
+}
+
+.column-2 {
+  float: left;
+  width: 30%;
+}
+
+.column-3 {
+  float: left;
+  width: 33%;
+}

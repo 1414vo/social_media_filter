@@ -1,0 +1,52 @@
+.category_box {
+    border-style: solid;
+    border-color: white;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 5px;
+    text-align: center;
+}
+
+.toxic {
+    background-color: #cccfce;
+    color: black;
+    width: 70%;
+    height: 12%;
+    font-size: 12px;
+    line-height: 100%;
+}
+
+.toxic:hover {
+    background-color: #afb1b0;
+}
+
+.medium {
+    background-color: #98d4ed;
+    color: black;
+    width: 80%;
+    height: 15%;
+    font-size: 14px;
+    line-height: 100%;
+}
+
+.medium:hover {
+    background-color: rgb(130, 182, 199);
+}
+
+.good {
+    background-color: #63d6af;
+    color: black;
+    width: 90%;
+    height: 17%;
+    font-size: 16px;
+    line-height: 100%;
+}
+
+.good:hover {
+    background-color: #45c49a;
+}
+
+.default {
+    background-color: gray;
+    color: black;
+}

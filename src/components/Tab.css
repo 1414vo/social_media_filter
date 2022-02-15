@@ -1,0 +1,27 @@
+.Tab{
+    border-radius: 20px 20px 0px 0px;
+    background-color: #d7faf2;
+    border-color:black;
+    text-align: center;
+    height: 100%;
+    box-shadow: 0px -5px 40px lightgray;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: default;
+}
+
+.Tab-selected {
+    border-radius: 20px 20px 0px 0px;
+    background-color: #eaf8f5;
+    border-color:black;
+    text-align: center;
+    height: 100%;
+    box-shadow: 0px -5px 40px lightgray;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: default;
+}
