@@ -7,10 +7,10 @@ class Category{
 
     constructor(category: CategoryType) {
         this.category = category;
-        this.categoryScore = this.getCategoryScore(category);
+        this.categoryScore = Category.getCategoryScore(category);
     }
 
-    private getCategoryScore(category: CategoryType) {
+    public static getCategoryScore(category: CategoryType) {
         switch(category) {
             case CategoryType.Politics:
                 return 0;
@@ -30,6 +30,10 @@ class Category{
                 return 2;
             case CategoryType.News:
                 return 0; 
+            case CategoryType.Business:
+                return 0;
+            case CategoryType.Tech:
+                return 1;
         }
     }
 }

@@ -7,7 +7,9 @@ enum CategoryType {
     Academic,
     Comedy,
     Inspirational,
-    News
+    News,
+    Business,
+    Tech
 }
 
 export default CategoryType;

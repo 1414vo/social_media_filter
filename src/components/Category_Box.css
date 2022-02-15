@@ -7,43 +7,43 @@
     text-align: center;
 }
 
-.red {
-    background-color: darkred;
-    color: white;
-    width: 100px;
-    height: 70px;
-    font-size: 18px;
-    line-height: 70px;
-}
-
-.red:hover {
-    background-color: #700000;
-}
-
-.yellow {
-    background-color: lightblue;
+.toxic {
+    background-color: #cccfce;
     color: black;
-    width: 120px;
-    height: 90px;
-    font-size: 24px;
-    line-height: 90px;
+    width: 70%;
+    height: 12%;
+    font-size: 12px;
+    line-height: 100%;
 }
 
-.yellow:hover {
-    background-color: #9AC8D8;
+.toxic:hover {
+    background-color: #afb1b0;
 }
 
-.green {
-    background-color: green;
-    color: white;
-    width: 160px;
-    height: 120px;
-    font-size: 28px;
-    line-height: 120px;
+.medium {
+    background-color: #98d4ed;
+    color: black;
+    width: 80%;
+    height: 15%;
+    font-size: 14px;
+    line-height: 100%;
 }
 
-.green:hover {
-    background-color: darkgreen;
+.medium:hover {
+    background-color: rgb(130, 182, 199);
+}
+
+.good {
+    background-color: #63d6af;
+    color: black;
+    width: 90%;
+    height: 17%;
+    font-size: 16px;
+    line-height: 100%;
+}
+
+.good:hover {
+    background-color: #45c49a;
 }
 
 .default {

@@ -21,11 +21,11 @@ class CategoryBox extends React.Component<IBoxProps, IBoxState> {
     getBoxStyle(type: number) {
       switch(type) {
         case 0:
-          return "red";
+          return "toxic";
         case 1:
-          return "yellow";
+          return "medium";
         case 2:
-          return "green";
+          return "good";
         default:
           return "default";
       }
