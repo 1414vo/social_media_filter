@@ -15,12 +15,12 @@ answerList = [];
 
 const questions = [{
     next_id: [1, 2],
-	question: "Answer 4 questions for a better Twitter experience! :)", // Intro
+	question: "Answer 5 questions for a better Twitter experience! :)", // Intro
 	description: "Click the Start button to begin.",
   },
   {
     next_id: [3, 4],
-	question: "Did you sleep well last night? (e.g., difficulty to fall asleep, stay asleep or get back to sleep after waking up early)", // Q1
+	question: "Did you have any sleeping difficulties (e.g., difficulty to fall asleep, stay asleep or get back to sleep after waking up early)?", // Q1
 	description: "1: can't fall asleep, 10: slept very well"
   },
   {
@@ -30,18 +30,18 @@ const questions = [{
   },
   {
     next_id: [5, 6, 7],
-	question: "Have you felt energised when trying to work?", // Q3
+	question: "How tired do you feel when you are trying to work?", // Q3
 	// alternative: little energy
-	description: "1: very tired, 10: extremely energised",
+	description: "1: extremely tired, 10: not tired at all",
   },
   {
     next_id: [5, 6, 7],
-	question: "How much is going through your head?", // Q4
-	description: "1: not much at all, 10: loads of thoughts"
+	question: "How difficult is it to concentrate on what you are doing?", // Q4
+	description: "1: extremely difficult, 10: not difficult at all"
   },
   {
     next_id: [8, 9, 10],
-	question: "How easy did you find it to relax today?", // Q5
+	question: "How easy do you find it to relax today?", // Q5
 	description: "1: not easy at all, 10: extremely easy"
   },
   {
@@ -55,19 +55,19 @@ const questions = [{
 	description: "1: a lot less sociable, 10: a lot more sociable"
   },
   {
-    next_id: [],
+    next_id: [11],
 	question: "Do you feel hot in the upper part of your body?", // Q8
-	description: "1: not hot at all, 10: extremely hot"
+	description: "1: extremely hot, 10: not hot at all"
   },
   {
-    next_id: [],
+    next_id: [11],
 	question: "Are your muscles stiff and tight?", // Q9
-	description: "1: not stiff and tight at all, 10: extremely stiff and tight",
+	description: "1: extremely stiff and tight, 10: not stiff and tight at all",
   },
   {
-    next_id: [],
+    next_id: [11],
 	question: "Are you experiencing a headache or any other kind of pain?", // Q10
-	description: "1: no headache or pain at all, 10: very severe headache or pain"
+	description: "1: very severe headache or pain, 10: no headache or pain at all,"
   },
   {
     next_id: [],
@@ -112,7 +112,7 @@ MoodTest.prototype.display = function(container) {
 
   function change_question() {
     self.questions[current_index].display(question_container);
-    if (current_index > 7) {
+    if (current_index === self.questions.length - 1) {
 		$('#next-question').text('Submit');
 	} else if (current_index > 0) {
 		$('#next-question').text('Next');
@@ -145,12 +145,12 @@ MoodTest.prototype.display = function(container) {
 
   $('#next-question').click(function() {
 	navigator.serviceWorker.controller.postMessage({id: current_index, ans: slider.value});
-	if (current_index > 0) {
-		answerList.push(new questionResponse(slider.value, current_index));
-	}
+  if (current_index > 0) { 
+		answerList.push(new questionResponse(slider.value, current_index)); 
+	} 
 	slider.value = 10;
 	output.innerHTML = 10;
-	if (current_index > 7) {
+	if (current_index === self.questions.length - 1) {
       end_test();
     } else {
       current_index = self.questions[current_index].next_id[Math.floor(Math.random() * self.questions[current_index].next_id.length)];
@@ -205,6 +205,7 @@ Question.prototype.display = function(container) {
       .attr('value', 'choices-' + i)
       .attr('checked', i === this.user_choice_index)
       .appendTo(container);
+
     // Create the label
     var choice_label = $('<label>')
       .text(choice)
@@ -216,11 +217,14 @@ Question.prototype.display = function(container) {
 		current_ans = choice;
     });
   }
+
   // Add a listener for the radio button to change which one the user has clicked on
   $('input[name=choices]').change(function(index) {
     var selected_radio_button_value = $('input[name=choices]:checked').val();
+
     // Change the user choice index
     self.user_choice_index = parseInt(selected_radio_button_value.substr(selected_radio_button_value.length - 1, 1));
+
     // Trigger a user-select-change
     container.trigger('user-select-change');
   });

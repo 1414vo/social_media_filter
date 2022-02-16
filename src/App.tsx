@@ -8,7 +8,9 @@ import Tab from './components/Tab';
 import AppContent from './AppContent';
 
 interface IAppProps {
-    categories: CategoryType[];
+    primary_list: CategoryType[];
+    secondary_list: CategoryType[];
+    avoid_list: CategoryType[];
 }
 
 interface IAppState {
@@ -33,11 +35,11 @@ class App extends React.Component<IAppProps, IAppState> {
     return (
       <div className="App">
         <div className="App-header">
-          <div onClick={() => this.updateTabIndex(0)} className="Header-tab"><Tab title="Your Feed" isSelected={this.state.tabIndex == 0}></Tab></div>
-          <div onClick={() => this.updateTabIndex(1)} className="Header-tab"><Tab title="Options" isSelected={this.state.tabIndex == 1}></Tab></div>
+          <div onClick={() => this.updateTabIndex(0)} className="Header-tab"><Tab title="Home" isSelected={this.state.tabIndex == 0}></Tab></div>
+          <div onClick={() => this.updateTabIndex(1)} className="Header-tab"><Tab title="Your Feed" isSelected={this.state.tabIndex == 1}></Tab></div>
         </div>
         <div className="App-content">
-            <AppContent categories={this.props.categories} tabIndex={this.state.tabIndex}></AppContent>
+            <AppContent primary_list={this.props.primary_list} secondary_list={this.props.secondary_list} avoid_list={this.props.avoid_list} tabIndex={this.state.tabIndex}></AppContent>
         </div>
       </div>
     );

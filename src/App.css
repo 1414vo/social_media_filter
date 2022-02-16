@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  width: 300px;
+  width: 600px;
   height: 400px;
   display: flex;
   flex-direction: column;
@@ -64,5 +64,5 @@
 
 .column-3 {
   float: left;
-  width: 33%;
+  width: 45%;
 }

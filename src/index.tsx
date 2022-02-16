@@ -7,7 +7,7 @@ import CategoryType from './models/CategoryType';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App categories={[CategoryType.Politics, CategoryType.Academic, CategoryType.Comedy, CategoryType.Art, CategoryType.Inspirational, CategoryType.Music]}/>
+    <App primary_list={[CategoryType.Academic, CategoryType.Entertainment]} secondary_list={[CategoryType.News, CategoryType.Tech, CategoryType.Business]} avoid_list={[CategoryType.Politics]}/>
   </React.StrictMode>,
   document.getElementById('root')
 );

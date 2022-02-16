@@ -1,82 +1,55 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import CategoryBox from './components/CategoryBox';
 import CategoryType from './models/CategoryType';
 import Category from './models/Category';
-import Tab from './components/Tab';
+import MoodDisplay from './components/moodtest/MoodDisplay';
 
 interface IAppProps {
     tabIndex: number;
-    categories: CategoryType[];
+    primary_list: CategoryType[];
+    secondary_list: CategoryType[];
+    avoid_list: CategoryType[];
 }
 
-interface IAppState {
-    toxic: CategoryType[];
-    medium: CategoryType[];
-    light: CategoryType[];
-}
-
-class AppContent extends React.Component<IAppProps, IAppState> {
+class AppContent extends React.Component<IAppProps> {
     constructor(props: IAppProps) {
         super(props);
-        this.state = AppContent.splitIntoColumns(this.props);
     }
 
     toggleCategory(category: CategoryType) {
         console.log(CategoryType[category]);
-    }
-
-    static splitIntoColumns(props: IAppProps) {
-        var splitProps: IAppState = {
-            toxic: [],
-            medium: [],
-            light: []
+        if(navigator.serviceWorker.controller){
+            console.log(`This page is currently controlled by: ${navigator.serviceWorker.controller}`);
+            navigator.serviceWorker.controller.postMessage(CategoryType[category]);
+        }else{
+            console.log("no service");
         }
-        props.categories.forEach(cat => {
-            var v = Category.getCategoryScore(cat);
-            switch(v) {
-            case 0:
-                splitProps.toxic.push(cat);
-                break;
-            case 1:
-                splitProps.medium.push(cat);
-                break;
-            case 2:
-                splitProps.light.push(cat);
-                break;
-            }
-        });
-        return splitProps;
-    }
-
-    static getDerivedStateFromProps(props: IAppProps, state: IAppState) {
-        return AppContent.splitIntoColumns(props);
     }
 
     render() {
-        if(this.props.tabIndex == 0){
+        if(this.props.tabIndex == 1){
             return (
                 <div className="row">
-                    <div className="column-1">
+                    <div className="column-3">
                     {
-                        this.state.toxic.map(cat => <CategoryBox category={cat} onClick={() => this.toggleCategory(cat)}/>)
+                        this.props.primary_list.map(cat => <CategoryBox category={cat} positivity={2} onClick={() => this.toggleCategory(cat)}/>)
                     }
                     </div>
                     <div className="column-2">
                     {
-                        this.state.medium.map(cat => <CategoryBox category={cat} onClick={() => this.toggleCategory(cat)}/>)
+                        this.props.secondary_list.map(cat => <CategoryBox category={cat} positivity={1} onClick={() => this.toggleCategory(cat)}/>)
                     }
                     </div>
-                    <div className="column-3">
+                    <div className="column-1">
                     {
-                        this.state.light.map(cat => <CategoryBox category={cat} onClick={() => this.toggleCategory(cat)}/>)
+                        this.props.avoid_list.map(cat => <CategoryBox category={cat} positivity={0} onClick={() => this.toggleCategory(cat)}/>)
                     }
                     </div>
                 </div>
             );
         }else{
-            return (<div></div>);
+            return (<div><MoodDisplay></MoodDisplay></div>);
         }
     }
 }

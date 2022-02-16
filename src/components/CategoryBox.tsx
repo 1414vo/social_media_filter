@@ -6,16 +6,11 @@ import './Category_Box.css';
 interface IBoxProps {
   category: CategoryType;
   onClick: any;
+  positivity: number;
 }
-interface IBoxState {
-  value: Category;
-}
-class CategoryBox extends React.Component<IBoxProps, IBoxState> {
+class CategoryBox extends React.Component<IBoxProps> {
     constructor(props: IBoxProps) {
         super(props);
-        this.state = {
-          value: new Category(props.category),
-        };
     }
 
     getBoxStyle(type: number) {
@@ -33,8 +28,8 @@ class CategoryBox extends React.Component<IBoxProps, IBoxState> {
 
     render() {
         return (
-            <div onClick={this.props.onClick} className={`category_box ${this.getBoxStyle(this.state.value.categoryScore)}`}>
-              {CategoryType[this.state.value.category]}
+            <div onClick={this.props.onClick} className={`category_box ${this.getBoxStyle(this.props.positivity)}`}>
+              {CategoryType[this.props.category]}
             </div>
           );
     }
