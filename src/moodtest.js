@@ -1,3 +1,15 @@
+
+moodDict = {"anxiety": 0, "sadness": 0, "anger": 0, "happiness": 0};
+
+class questionResponse {
+    constructor(questionAnswer, questionNumber) {
+        this.questionNumber = questionNumber;
+        this.questionAnswer =  questionAnswer;
+    }
+}
+
+answerList = [];
+
 const questions = [{
     next_id: [1, 2],
 	question: "Answer 4 questions for a better Twitter experience! :)", // Intro
@@ -117,6 +129,9 @@ MoodTest.prototype.display = function(container) {
   	$('#end-message').text('You successfully submitted all your answers!');
     $('#next-question').slideUp();
     $('#end-page').slideDown();
+
+    // Fabien will add function calls here
+
   }
   
   // display intro
@@ -218,3 +233,6 @@ $(document).ready(function() {
   var test_container = $('#moodtest');
   moodtest.display(test_container);
 });
+
+
+
