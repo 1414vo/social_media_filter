@@ -1,11 +1,11 @@
 const questions = [{
     next_id: [1, 2],
-	question: "Answer 5 questions for a better Twitter experience! :)", // Intro
+	question: "Answer 4 questions for a better Twitter experience! :)", // Intro
 	description: "Click the Start button to begin.",
   },
   {
     next_id: [3, 4],
-	question: "Did you have any sleeping difficulties (e.g., difficulty to fall asleep, stay asleep or get back to sleep after waking up early)?", // Q1
+	question: "Did you sleep well last night? (e.g., difficulty to fall asleep, stay asleep or get back to sleep after waking up early)", // Q1
 	description: "1: can't fall asleep, 10: slept very well"
   },
   {
@@ -15,18 +15,18 @@ const questions = [{
   },
   {
     next_id: [5, 6, 7],
-	question: "How tired do you feel when you are trying to work?", // Q3
+	question: "Have you felt energised when trying to work?", // Q3
 	// alternative: little energy
-	description: "1: extremely tired, 10: not tired at all",
+	description: "1: very tired, 10: extremely energised",
   },
   {
     next_id: [5, 6, 7],
-	question: "How difficult is it to concentrate on what you are doing?", // Q4
-	description: "1: extremely difficult, 10: not difficult at all"
+	question: "How much is going through your head?", // Q4
+	description: "1: not much at all, 10: loads of thoughts"
   },
   {
     next_id: [8, 9, 10],
-	question: "How easy do you find it to relax today?", // Q5
+	question: "How easy did you find it to relax today?", // Q5
 	description: "1: not easy at all, 10: extremely easy"
   },
   {
@@ -40,19 +40,19 @@ const questions = [{
 	description: "1: a lot less sociable, 10: a lot more sociable"
   },
   {
-    next_id: [11],
+    next_id: [],
 	question: "Do you feel hot in the upper part of your body?", // Q8
-	description: "1: extremely hot, 10: not hot at all"
+	description: "1: not hot at all, 10: extremely hot"
   },
   {
-    next_id: [11],
+    next_id: [],
 	question: "Are your muscles stiff and tight?", // Q9
-	description: "1: extremely stiff and tight, 10: not stiff and tight at all",
+	description: "1: not stiff and tight at all, 10: extremely stiff and tight",
   },
   {
-    next_id: [11],
+    next_id: [],
 	question: "Are you experiencing a headache or any other kind of pain?", // Q10
-	description: "1: very severe headache or pain, 10: no headache or pain at all,"
+	description: "1: no headache or pain at all, 10: very severe headache or pain"
   },
   {
     next_id: [],
@@ -97,7 +97,7 @@ MoodTest.prototype.display = function(container) {
 
   function change_question() {
     self.questions[current_index].display(question_container);
-    if (current_index === self.questions.length - 1) {
+    if (current_index > 7) {
 		$('#next-question').text('Submit');
 	} else if (current_index > 0) {
 		$('#next-question').text('Next');
@@ -127,7 +127,7 @@ MoodTest.prototype.display = function(container) {
 	navigator.serviceWorker.controller.postMessage({id: current_index, ans: slider.value});
 	slider.value = 10;
 	output.innerHTML = 10;
-	if (current_index === self.questions.length - 1) {
+	if (current_index > 7) {
       end_test();
     } else {
       current_index = self.questions[current_index].next_id[Math.floor(Math.random() * self.questions[current_index].next_id.length)];
