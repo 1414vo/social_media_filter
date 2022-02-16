@@ -129,6 +129,7 @@ MoodTest.prototype.display = function(container) {
   	$('#end-message').text('You successfully submitted all your answers!');
     $('#next-question').slideUp();
     $('#end-page').slideDown();
+	navigator.serviceWorker.controller.postMessage(answerList);
 
     // Fabien will add function calls here
 
@@ -140,6 +141,9 @@ MoodTest.prototype.display = function(container) {
 
   $('#next-question').click(function() {
 	navigator.serviceWorker.controller.postMessage({id: current_index, ans: slider.value});
+	if (current_index > 0) {
+		answerList.push(new questionResponse(slider.value, current_index));
+	}
 	slider.value = 10;
 	output.innerHTML = 10;
 	if (current_index > 7) {
@@ -197,7 +201,6 @@ Question.prototype.display = function(container) {
       .attr('value', 'choices-' + i)
       .attr('checked', i === this.user_choice_index)
       .appendTo(container);
-
     // Create the label
     var choice_label = $('<label>')
       .text(choice)
@@ -209,14 +212,11 @@ Question.prototype.display = function(container) {
 		current_ans = choice;
     });
   }
-
   // Add a listener for the radio button to change which one the user has clicked on
   $('input[name=choices]').change(function(index) {
     var selected_radio_button_value = $('input[name=choices]:checked').val();
-
     // Change the user choice index
     self.user_choice_index = parseInt(selected_radio_button_value.substr(selected_radio_button_value.length - 1, 1));
-
     // Trigger a user-select-change
     container.trigger('user-select-change');
   });
@@ -233,6 +233,3 @@ $(document).ready(function() {
   var test_container = $('#moodtest');
   moodtest.display(test_container);
 });
-
-
-
