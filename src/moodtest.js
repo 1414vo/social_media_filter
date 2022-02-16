@@ -1,4 +1,7 @@
 
+import {generateCategoryLists} from "./returnCategoryLists.js";
+import {predictMood} from "./moodPredict.js"; 
+
 moodDict = {"anxiety": 0, "sadness": 0, "anger": 0, "happiness": 0};
 
 class questionResponse {
@@ -132,7 +135,8 @@ MoodTest.prototype.display = function(container) {
 	navigator.serviceWorker.controller.postMessage(answerList);
 
     // Fabien will add function calls here
-
+    predMoodOut = predictMood(answerList);
+    generateCategoryLists(predMoodOut);
   }
   
   // display intro
