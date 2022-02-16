@@ -13,4 +13,4 @@ class Scorer:
 
     def score(self, sentence):
         embedding = np.array(self.model.encode(sentence))
-        return {topic: prompt_vector.dot(embedding) for (topic, prompt_vector) in self.prompt_vectors.items()}
+        return {topic: prompt_vector.dot(embedding).item() for (topic, prompt_vector) in self.prompt_vectors.items()}
