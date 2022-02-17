@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import CategoryType from './models/CategoryType';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App primary_list={[CategoryType.Academic, CategoryType.Entertainment]} secondary_list={[CategoryType.News, CategoryType.Tech, CategoryType.Business]} avoid_list={[CategoryType.Politics]}/>
-  </React.StrictMode>,
+    <div>
+      {}
+      <App/>
+    </div>
+    </React.StrictMode>,
   document.getElementById('root')
 );
 

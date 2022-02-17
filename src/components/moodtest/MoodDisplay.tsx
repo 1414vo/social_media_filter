@@ -1,12 +1,19 @@
 import React from "react";
 import './MoodTest.css';
-import $ from 'jquery';
+import $, { param } from 'jquery';
 import MoodTest from "./MoodTest";
 import Question from "./Question";
-class MoodDisplay extends React.Component{
+
+interface IMoodDisplayProps {
+  callback: Function;
+}
+class MoodDisplay extends React.Component<IMoodDisplayProps>{
+    constructor(props: IMoodDisplayProps){
+      super(props);
+    }
 
     displayComponent() {
-
+      var component = this;
       const questions = [{
         next_id: [1, 2],
         question: "Answer 4 questions for a better Twitter experience! :)", // Intro , // Intro
@@ -69,7 +76,7 @@ class MoodDisplay extends React.Component{
       description: "1: between 1 and 5, 10: between 46 and 50"
       },
     ];
-    
+
       // main method to create questions and test and display everything
       $(document).ready(function() {
         var moodtest = new MoodTest();
@@ -79,7 +86,13 @@ class MoodDisplay extends React.Component{
         }
         var test_container = $('#moodtest');
         moodtest.display(test_container);
+        $("#moodtest").on('end', function(event, param1) {
+          component.props.callback(param1.primaryList, param1.secondaryList, param1.avoidList);
+          console.log("here!");
+        });
       });
+
+      
     }
 
     componentDidMount() {

@@ -28,8 +28,8 @@ MoodTest.prototype.display = function(container) {
 
     // Update the current slider value (each time you drag the slider handle)
     slider.oninput = function() {
-    output.innerHTML = this.value;
-}
+      output.innerHTML = this.value;
+    }
 
     var self = this;
     $('#end-page').hide();
@@ -58,9 +58,9 @@ MoodTest.prototype.display = function(container) {
       $('#next-question').slideUp();
       $('#end-page').slideDown();
 
-      navigator.serviceWorker.controller.postMessage(answerList);
       var predMoodOut = predictMood(answerList);
-      generateCategoryLists(predMoodOut);
+      var newCategoryList = generateCategoryLists(predMoodOut);
+      $('#moodtest').trigger("end", newCategoryList);
     }
     
     // display intro

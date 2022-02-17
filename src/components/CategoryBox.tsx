@@ -1,5 +1,4 @@
 import React from 'react';
-import Category from '../models/Category';
 import CategoryType from '../models/CategoryType';
 import './Category_Box.css';
 

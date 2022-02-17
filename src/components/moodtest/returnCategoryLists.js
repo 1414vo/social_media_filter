@@ -1,13 +1,13 @@
 // Need interface for getting mood from the moodPredict.js script
 
 //userMood = "happiness"; // MAKE THIS ACTUAL INTERACT WITH OTHER SCRIPTS
-
+import CategoryType from "../../models/CategoryType";
 export function generateCategoryLists(userMood) {
     var primaryList = [];
     var secondaryList = [];
     var avoidList = [];
 
-    var categories = ["Politics", "Entertainment", "Art", "Music", "Lifestyle", "Academic", "Comedy", "Inspirational", "News", "Business", "Tech"];
+    var categories = [CategoryType.Politics, CategoryType.Entertainment, CategoryType.Art, CategoryType.Lifestyle , CategoryType.Music, CategoryType.Academic, CategoryType.Comedy, CategoryType.Inspirational, CategoryType.News, CategoryType.Business, CategoryType.Tech];
 
 
     function intersection(arr1, arr2) {
@@ -41,26 +41,26 @@ export function generateCategoryLists(userMood) {
 
     switch (userMood) {
         case "anxiety":
-            primaryList = ["Music", "Art", "Entertainment", "Inspirational"];
-            avoidList = ["News", "Politics", "Business", "Lifestyle"];
+            primaryList = [CategoryType.Music, CategoryType.Art, CategoryType.Entertainment, CategoryType.Inspirational];
+            avoidList = [CategoryType.News, CategoryType.Politics, CategoryType.Business, CategoryType.Lifestyle];
             secondaryList = difference(avoidList, difference(categories, primaryList));
             break;
 
         case "sadness":
-            primaryList = ["Music", "Art", "Entertainment", "Comedy", "Academic"];
-            avoidList = ["News", "Politics", "Business"];
+            primaryList = [CategoryType.Music, CategoryType.Art, CategoryType.Entertainment, CategoryType.Comedy, CategoryType.Academic];
+            avoidList = [CategoryType.News, CategoryType.Politics, CategoryType.Business];
             secondaryList = difference(avoidList, difference(categories, primaryList));
             break;
 
         case "anger":
-            primaryList = ["Music", "Entertainment", "Comedy", "Academic", "Politics"];
-            avoidList = ["Inspirational"];
+            primaryList = [CategoryType.Music, CategoryType.Entertainment, CategoryType.Comedy, CategoryType.Academic, CategoryType.Politics];
+            avoidList = [CategoryType.Inspirational];
             secondaryList = difference(avoidList, difference(categories, primaryList));
             break;
 
         case "happiness":
-            primaryList = ["News", "Politics", "Academic", "Comedy", "Business"];
-            avoidList = ["Lifestyle"];
+            primaryList = [CategoryType.News, CategoryType.Politics, CategoryType.Academic, CategoryType.Comedy, CategoryType.Business];
+            avoidList = [CategoryType.Lifestyle];
             secondaryList = difference(avoidList, difference(categories, primaryList));
             break;
 
@@ -71,6 +71,7 @@ export function generateCategoryLists(userMood) {
     console.log("Primary List: " + primaryList);
     console.log("Secondary List: " + secondaryList);
     console.log("Avoiding: " + avoidList);
+    return {"primaryList": primaryList, "secondaryList": secondaryList, "avoidList": avoidList};
 }
 
 //generateCategoryLists(userMood);
