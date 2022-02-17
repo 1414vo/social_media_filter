@@ -17,9 +17,9 @@ answerList.push(q0);
 q0 = new questionResponse(3, 8);
 answerList.push(q0);
 */
-
 export function predictMood(answerList) {
-
+    var moodDict = {"anxiety": 0, "sadness": 0, "anger": 0, "happiness": 0};
+    
     function updateMoodValues(anx, sad, ang, hap) {
         moodDict.anxiety += anx;
         moodDict.sadness += sad;

@@ -1,6 +1,6 @@
 
 import {generateCategoryLists} from "./components/moodtest/returnCategoryLists.js";
-import {predictMood} from "./components/moodtest/moodPredict.js"; 
+import {predictMood} from "./components/moodtest/MoodPredict.js"; 
 
 moodDict = {"anxiety": 0, "sadness": 0, "anger": 0, "happiness": 0};
 

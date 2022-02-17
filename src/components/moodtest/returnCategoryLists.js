@@ -3,15 +3,15 @@
 //userMood = "happiness"; // MAKE THIS ACTUAL INTERACT WITH OTHER SCRIPTS
 
 export function generateCategoryLists(userMood) {
-    primaryList = [];
-    secondaryList = [];
-    avoidList = [];
+    var primaryList = [];
+    var secondaryList = [];
+    var avoidList = [];
 
-    categories = ["Politics", "Entertainment", "Art", "Music", "Lifestyle", "Academic", "Comedy", "Inspirational", "News", "Business", "Tech"];
+    var categories = ["Politics", "Entertainment", "Art", "Music", "Lifestyle", "Academic", "Comedy", "Inspirational", "News", "Business", "Tech"];
 
 
     function intersection(arr1, arr2) {
-        returnList = [];
+        var returnList = [];
         for (const val of arr1) {
             if (arr2.includes(val)) {
                 returnList.push(val);
@@ -21,8 +21,8 @@ export function generateCategoryLists(userMood) {
     }
 
     function difference(arr1, arr2) {
-        intersectionSet = intersection(arr1, arr2);
-        differenceSet = [];
+        var intersectionSet = intersection(arr1, arr2);
+        var differenceSet = [];
 
         for (const val of arr1) {
             if (!intersectionSet.includes(val)) {

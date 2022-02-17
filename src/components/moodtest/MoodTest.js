@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {predictMood} from "./moodPredict.js";
+import {predictMood} from "./MoodPredict.js";
 import {generateCategoryLists} from "./returnCategoryLists.js";
 export default class MoodTest {
     constructor() {
@@ -12,16 +12,14 @@ MoodTest.prototype.add_question = function(question) {
     this.questions.splice(this.questions.length, 0, question);
 }
 
-moodDict = {"anxiety": 0, "sadness": 0, "anger": 0, "happiness": 0};
-
-class questionResponse {
+export class questionResponse {
     constructor(questionAnswer, questionNumber) {
         this.questionNumber = questionNumber;
         this.questionAnswer =  questionAnswer;
     }
 }
 
-answerList = [];
+var answerList = [];
 
 MoodTest.prototype.display = function(container) {
     var slider = document.getElementById("slider");
@@ -71,6 +69,9 @@ MoodTest.prototype.display = function(container) {
   
     $('#next-question').click(function() {
       console.log(current_index, slider.value);
+      if (current_index > 0) { 
+        answerList.push(new questionResponse(slider.value, current_index)); 
+      } 
       slider.value = 10;
       output.innerHTML = 10;
       if (current_index > 7) { 
