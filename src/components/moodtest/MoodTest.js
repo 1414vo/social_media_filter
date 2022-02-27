@@ -68,8 +68,8 @@ MoodTest.prototype.display = function(container) {
     change_question();
   
     $('#next-question').click(function() {
-      console.log(current_index, slider.value);
       if (current_index > 0) { 
+        console.log(current_index, slider.value);
         answerList.push(new questionResponse(parseInt(slider.value), current_index)); 
       } 
       slider.value = 10;

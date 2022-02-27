@@ -27,11 +27,18 @@ export function predictMood(answerList) {
         moodDict.happiness += hap;
     }
 
+    function reset() {
+        moodDict.anxiety = 0;
+        moodDict.sadness = 0;
+        moodDict.anger = 0;
+        moodDict.happiness = 0;
+    }
+
     function questionUpdateValues(qNum, val) {
         val = val/10;
         switch (qNum) {
             case 1: // Did you sleep well last night?
-                updateMoodValues(1.5 * (0.7 - val), 0, 1.2 * (1 - val), 0.5 * val);
+                updateMoodValues(1.5 * (0.7 - val), 0.8 * (0.8 - val), 1.2 * (1 - val), 0.8 * (val - 0.4));
                 break;
             case 2: // How is you appetite today?
                 updateMoodValues(0.3 * Math.abs(0.5 - val), 0.2 * Math.abs(0.5 - val), 0, 0);
@@ -40,7 +47,7 @@ export function predictMood(answerList) {
                 updateMoodValues(0.8 * (0.6 - val), 1.0 * (0.9 - val), 0.8 * val, 0.5 * val);
                 break;
             case 4: // How much is going through your head?
-                updateMoodValues(val * 1.5, 0, val * 1.0, val * 0.5);
+                updateMoodValues(val * 1.5, val * 0.5, val * 1.0, val * 0.5);
                 break;
             case 5: // How easy did you find it to relax today?
                 updateMoodValues(0.7 * (0.8 - val), 0.6 * (0.6 - val), 0.5 * (1 - val), 0.8 * val);
@@ -60,9 +67,9 @@ export function predictMood(answerList) {
             case 10: // Are you experiencing a headache or any other kind of pain?
                 updateMoodValues(0.5 * val, 0.2 * val, 0.6 * val, 0.2 * val);
                 break;
-            
-
-
+            case 11: // How high is your self-esteem now?
+                updateMoodValues(0, 0.55 - val, 0, val - 0.55);
+                break;
 
                 /*
             case 0: // How much is going through your head?
