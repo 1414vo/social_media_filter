@@ -37,7 +37,7 @@ MoodTest.prototype.display = function(container) {
   
     function change_question() {
       self.questions[current_index].display(question_container);
-      if (current_index > 7 && current_index < 11) { 
+      if (current_index >= 8 && current_index <= 10) { 
           $('#next-question').text('Submit');
       } else if (current_index > 0) {
           $('#next-question').text('Next');
@@ -74,7 +74,7 @@ MoodTest.prototype.display = function(container) {
       } 
       slider.value = 10;
       output.innerHTML = 10;
-      if (current_index > 7) { 
+      if (current_index >= 8 && current_index <= 10) { 
         end_test();
       } else {
         current_index = self.questions[current_index].next_id[Math.floor(Math.random() * self.questions[current_index].next_id.length)];
