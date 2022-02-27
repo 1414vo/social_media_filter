@@ -37,7 +37,7 @@ MoodTest.prototype.display = function(container) {
   
     function change_question() {
       self.questions[current_index].display(question_container);
-      if (current_index > 7) { 
+      if (current_index > 7 && current_index < 11) { 
           $('#next-question').text('Submit');
       } else if (current_index > 0) {
           $('#next-question').text('Next');
