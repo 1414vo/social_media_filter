@@ -51,10 +51,10 @@ MoodTest.prototype.display = function(container) {
     }
     
     function end_test() {
-        document.getElementById("front-page").style.visibility = "hidden";
+      document.getElementById("front-page").style.visibility = "hidden";
       document.getElementById("slider").style.visibility = "hidden";
       document.getElementById("value").style.visibility = "hidden";
-        $('#end-message').text('You successfully submitted all your answers!');
+      $('#end-message').text('You successfully submitted all your answers! Categories have been updated in the other tab.');
       $('#next-question').slideUp();
       $('#end-page').slideDown();
 

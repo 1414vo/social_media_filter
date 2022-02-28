@@ -93,16 +93,13 @@ export function predictMood(answerList) {
         }
     }
 
-
-
+    reset();
     // evaluate every question response
     for (const qr of answerList) {
         questionUpdateValues(qr.questionNumber, qr.questionAnswer);
     }
     
-
     console.log(moodDict);
-
 
     // find argmax of mood
     var largestMoodScore = 0;
@@ -113,7 +110,6 @@ export function predictMood(answerList) {
             largestMoodScore = moodDict[mood];
         }
     }
-
 
     console.log("Predominant mood is: " + predictedMood)
     return predictedMood;

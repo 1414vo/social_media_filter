@@ -53,13 +53,13 @@ export function generateCategoryLists(userMood) {
             break;
 
         case "anger":
-            primaryList = [CategoryType.Music, CategoryType.Entertainment, CategoryType.Comedy, CategoryType.Academic, CategoryType.Politics];
+            primaryList = [CategoryType.Music, CategoryType.Entertainment, CategoryType.Comedy, CategoryType.Academic];
             avoidList = [CategoryType.Inspirational];
             secondaryList = difference(avoidList, difference(categories, primaryList));
             break;
 
         case "happiness":
-            primaryList = [CategoryType.News, CategoryType.Politics, CategoryType.Academic, CategoryType.Comedy, CategoryType.Business];
+            primaryList = [CategoryType.News, CategoryType.Politics, CategoryType.Academic, CategoryType.Business];
             avoidList = [CategoryType.Lifestyle];
             secondaryList = difference(avoidList, difference(categories, primaryList));
             break;
