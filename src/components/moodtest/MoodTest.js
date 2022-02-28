@@ -19,8 +19,6 @@ export class questionResponse {
     }
 }
 
-var answerList = [];
-
 MoodTest.prototype.display = function(container) {
     var slider = document.getElementById("slider");
     var output = document.getElementById("value");
@@ -65,6 +63,7 @@ MoodTest.prototype.display = function(container) {
     
     // display intro
     var current_index = 0;
+    var answerList = [];
     change_question();
   
     $('#next-question').click(function() {

@@ -27,6 +27,13 @@ export function predictMood(answerList) {
         moodDict.happiness += hap;
     }
 
+    function reset() {
+        moodDict.anxiety = 0;
+        moodDict.sadness = 0;
+        moodDict.anger = 0;
+        moodDict.happiness = 0;
+    }
+
     function questionUpdateValues(qNum, val) {
         val = val/10;
         switch (qNum) {
@@ -86,10 +93,7 @@ export function predictMood(answerList) {
         }
     }
 
-    moodDict.anxiety = 0;
-    moodDict.sadness = 0;
-    moodDict.anger = 0;
-    moodDict.happiness = 0;
+    reset();
     // evaluate every question response
     for (const qr of answerList) {
         questionUpdateValues(qr.questionNumber, qr.questionAnswer);
