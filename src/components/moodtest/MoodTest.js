@@ -48,39 +48,17 @@ MoodTest.prototype.display = function(container) {
       }
     }
     
-    async function end_test() {
+    function end_test() {
+      var predMoodOut = predictMood(answerList);
+      var newCategoryList = generateCategoryLists(predMoodOut);
+
       document.getElementById("front-page").style.visibility = "hidden";
       document.getElementById("slider").style.visibility = "hidden";
       document.getElementById("value").style.visibility = "hidden";
       $('#end-message').text('You successfully submitted all your answers! Categories have been updated in the other tab.');
       $('#next-question').slideUp();
       $('#end-page').slideDown();
-
-      let [tab] = await chrome.tabs.query({ active: true, currentWindow: true }); // ***
       
-      var predMoodOut = predictMood(answerList);
-      if (predMoodOut == "anxiety") {
-        chrome.scripting.executeScript({ 
-          target: { tabId: tab.id }, 
-          function: () => {document.body.style.backgroundColor = '#87ceeb';}, // Sky Blue
-        });
-      } else if (predMoodOut == "sadness") {
-        chrome.scripting.executeScript({ 
-          target: { tabId: tab.id }, 
-          function: () => {document.body.style.backgroundColor = '#d3eede';}, // Gentle Green 
-        });
-      } else if (predMoodOut == "anger") {
-        chrome.scripting.executeScript({ 
-          target: { tabId: tab.id }, 
-          function: () => {document.body.style.backgroundColor = '#c8e0e0';}, // Skylight
-        });
-      } else if (predMoodOut == "happiness") {
-        chrome.scripting.executeScript({ 
-          target: { tabId: tab.id }, 
-          function: () => {document.body.style.backgroundColor = '#ffffbf';}, // Pale Yellow
-        });
-      }
-      var newCategoryList = generateCategoryLists(predMoodOut);
       $('#moodtest').trigger("end", newCategoryList);
     }
     
@@ -102,6 +80,15 @@ MoodTest.prototype.display = function(container) {
         current_index = self.questions[current_index].next_id[Math.floor(Math.random() * self.questions[current_index].next_id.length)];
         change_question();
       }
+    });
+
+    $('#restart').click(function() {
+      current_index = 0;
+      answerList = [];
+      document.getElementById("front-page").style.visibility = "visible";
+      document.getElementById("next-question").style.visibility = "visible";
+      $('#end-page').hide();
+      change_question();
     });
   }
 
