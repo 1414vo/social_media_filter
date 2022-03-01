@@ -1,3 +1,19 @@
+var categories = new Set([1,2,3]);
+
+function set_to_json(set){
+    json_string = "[";
+
+    var addComma = false;
+
+    for (let element of set){
+        if (addComma) json_string += ",";
+        json_string += "\"" + element + "\"";
+        addComma = true;
+    }
+
+    return json_string + "]";
+}
+
 chrome.runtime.onInstalled.addListener((details) =>
 {
     console.log("Installed");
