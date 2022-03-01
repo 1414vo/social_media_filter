@@ -30,6 +30,7 @@ MoodTest.prototype.display = function(container) {
     }
 
     var self = this;
+    $('#predicted-mood').hide(); 
     $('#end-page').hide();
     var question_container = $('<div>').attr('id', 'question').insertAfter('#moodtest-name');
   
@@ -55,9 +56,23 @@ MoodTest.prototype.display = function(container) {
       document.getElementById("front-page").style.visibility = "hidden";
       document.getElementById("slider").style.visibility = "hidden";
       document.getElementById("value").style.visibility = "hidden";
-      $('#end-message').text('You successfully submitted all your answers! Categories have been updated in the other tab.');
+      // You successfully submitted all your answers! Categories have been updated in the other tab.
+      if (predMoodOut == "anxiety") {
+        $('#predicted-mood').text('Predicted Mood: Anxiety');
+        $('#end-message').text('Some days can contain a lot of stress in them, it’s important to take some time out to relax though. We recommend enjoying something beautiful such as music or art, or maybe taking in something entertaining or inspiring.');
+      } else if (predMoodOut == "sadness") {
+        $('#predicted-mood').text('Predicted Mood: Sadness');
+        $('#end-message').text('You might be feeling a bit down at the moment and so we hope you feel better soon. In the meantime we recommend some light or silly entertainment, we also recommend appreciating something pretty such as some art or music.');
+      } else if (predMoodOut == "anger") {
+        $('#predicted-mood').text('Predicted Mood: Anger');
+        $('#end-message').text('Sometimes things can get quite tense and we need to find some space and time to keep calm or work through those feelings. We’ve suggested you enjoy something funny or entertaining, or something intellectually stimulating to take your mind off things.');
+      } else if (predMoodOut == "happiness") {
+        $('#predicted-mood').text('Predicted Mood: Happiness');
+        $('#end-message').text('It’s great that you’re feeling good! We’ve recommended that you try and use now to take in some news, or maybe engage with something more intellectually challenging such as some political or academic content.');
+      }
       $('#next-question').slideUp();
       $('#end-page').slideDown();
+      $('#predicted-mood').slideDown();
       
       $('#moodtest').trigger("end", newCategoryList);
     }
@@ -88,6 +103,7 @@ MoodTest.prototype.display = function(container) {
 	    $('#next-question').slideDown();
       document.getElementById("front-page").style.visibility = "visible";
       $('#end-page').hide();
+      $('#predicted-mood').hide();
       change_question();
     });
   }

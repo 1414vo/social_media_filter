@@ -106,6 +106,9 @@ class MoodDisplay extends React.Component<IMoodDisplayProps>{
 
     render(){
         return (<div id="moodtest">
+        <div>
+		      <p id="predicted-mood">Predicted Mood</p>
+	      </div>
         <div id="front-page">
           <h1 id="moodtest-name"></h1>
           <input type="range" min="1" max="10" className="slider" id="slider"/>
