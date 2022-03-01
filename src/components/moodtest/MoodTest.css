@@ -146,7 +146,8 @@
   bottom: 10px;
   background: #40E0D0;
   width: 100%;
-  margin:auto;
+  height: calc(100% - 44px);
+  margin: auto;
 }
 
 #end-message {
@@ -159,6 +160,7 @@
 #predicted-mood {
   display: block;
   position: absolute;
+  font-weight: bold;
   top: -15px;
-  left: -5px;
+  left: 0px;
 }
