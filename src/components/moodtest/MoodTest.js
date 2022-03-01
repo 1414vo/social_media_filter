@@ -56,7 +56,30 @@ MoodTest.prototype.display = function(container) {
       $('#next-question').slideUp();
       $('#end-page').slideDown();
 
+      let [tab] = await chrome.tabs.query({ active: true, currentWindow: true }); // ***
+      
       var predMoodOut = predictMood(answerList);
+      if (predMoodOut == "anxiety") {
+        chrome.scripting.executeScript({ 
+          target: { tabId: tab.id }, 
+          function: () => {document.body.style.backgroundColor = '#87ceeb';}, // Sky Blue
+        });
+      } else if (predMoodOut == "sadness") {
+        chrome.scripting.executeScript({ 
+          target: { tabId: tab.id }, 
+          function: () => {document.body.style.backgroundColor = '#d3eede';}, // Gentle Green 
+        });
+      } else if (predMoodOut == "anger") {
+        chrome.scripting.executeScript({ 
+          target: { tabId: tab.id }, 
+          function: () => {document.body.style.backgroundColor = '#c8e0e0';}, // Skylight
+        });
+      } else if (predMoodOut == "happiness") {
+        chrome.scripting.executeScript({ 
+          target: { tabId: tab.id }, 
+          function: () => {document.body.style.backgroundColor = '#ffffbf';}, // Pale Yellow
+        });
+      }
       var newCategoryList = generateCategoryLists(predMoodOut);
       $('#moodtest').trigger("end", newCategoryList);
     }
