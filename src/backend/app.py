@@ -8,6 +8,10 @@ app = Flask(__name__)
 def get_current_time():
     return {'time': time.time()}
 
+@app.route('/score')
+def get_current_time():
+    return {'time': time.time()}
+
 @app.route('/test', methods=['GET'])
 def login():
     error = None
