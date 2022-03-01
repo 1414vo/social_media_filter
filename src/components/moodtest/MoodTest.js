@@ -85,8 +85,8 @@ MoodTest.prototype.display = function(container) {
     $('#restart').click(function() {
       current_index = 0;
       answerList = [];
+	    $('#next-question').slideDown();
       document.getElementById("front-page").style.visibility = "visible";
-      document.getElementById("next-question").style.visibility = "visible";
       $('#end-page').hide();
       change_question();
     });
