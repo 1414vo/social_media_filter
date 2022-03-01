@@ -19,8 +19,6 @@ export class questionResponse {
     }
 }
 
-var answerList = [];
-
 MoodTest.prototype.display = function(container) {
     var slider = document.getElementById("slider");
     var output = document.getElementById("value");
@@ -37,7 +35,7 @@ MoodTest.prototype.display = function(container) {
   
     function change_question() {
       self.questions[current_index].display(question_container);
-      if (current_index > 7) { 
+      if (current_index >= 8 && current_index <= 10) { 
           $('#next-question').text('Submit');
       } else if (current_index > 0) {
           $('#next-question').text('Next');
@@ -51,10 +49,10 @@ MoodTest.prototype.display = function(container) {
     }
     
     function end_test() {
-        document.getElementById("front-page").style.visibility = "hidden";
+      document.getElementById("front-page").style.visibility = "hidden";
       document.getElementById("slider").style.visibility = "hidden";
       document.getElementById("value").style.visibility = "hidden";
-        $('#end-message').text('You successfully submitted all your answers!');
+      $('#end-message').text('You successfully submitted all your answers! Categories have been updated in the other tab.');
       $('#next-question').slideUp();
       $('#end-page').slideDown();
 
@@ -65,16 +63,17 @@ MoodTest.prototype.display = function(container) {
     
     // display intro
     var current_index = 0;
+    var answerList = [];
     change_question();
   
     $('#next-question').click(function() {
-      console.log(current_index, slider.value);
       if (current_index > 0) { 
+        console.log(current_index, slider.value);
         answerList.push(new questionResponse(parseInt(slider.value), current_index)); 
       } 
       slider.value = 10;
       output.innerHTML = 10;
-      if (current_index > 7) { 
+      if (current_index >= 8 && current_index <= 10) { 
         end_test();
       } else {
         current_index = self.questions[current_index].next_id[Math.floor(Math.random() * self.questions[current_index].next_id.length)];
@@ -82,5 +81,3 @@ MoodTest.prototype.display = function(container) {
       }
     });
   }
-
-              
