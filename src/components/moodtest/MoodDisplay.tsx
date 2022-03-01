@@ -1,24 +1,31 @@
 import React from "react";
 import './MoodTest.css';
-import $ from 'jquery';
+import $, { param } from 'jquery';
 import MoodTest from "./MoodTest";
 import Question from "./Question";
-class MoodDisplay extends React.Component{
+
+interface IMoodDisplayProps {
+  callback: Function;
+}
+class MoodDisplay extends React.Component<IMoodDisplayProps>{
+    constructor(props: IMoodDisplayProps){
+      super(props);
+    }
 
     displayComponent() {
-
+      var component = this;
       const questions = [{
         next_id: [1, 2],
-        question: "Answer 4 questions for a better Twitter experience! :)", // Intro , // Intro
+        question: "Answer 4 questions for a better Twitter experience! :)", // Intro
         description: "Click the Start button to begin.",
       },
       {
-        next_id: [3, 4],
-        question: "Did you sleep well last night? (e.g., difficulty to fall asleep, stay asleep or get back to sleep after waking up early)", // Q1 
+        next_id: [3, 4, 11],
+        question: "Did you sleep well last night?", // Q1 
         description: "1: can't fall asleep, 10: slept very well"
       },
       {
-        next_id: [3, 4], 
+        next_id: [3, 4, 11], 
         question: "How is your appetite today?", // Q2
         description: "1: extremely poor, 10: extremely good",
       },
@@ -64,12 +71,17 @@ class MoodDisplay extends React.Component{
         description: "1: no headache or pain at all, 10: very severe headache or pain" 
       },
       {
+        next_id: [5, 6, 7],
+      question: "How high is your self-esteem now?", // Q11
+      description: "1: very low, 10: very high"
+      },
+      {
         next_id: [],
-      question: "Now measure your heartbeat for 15 seconds. How many heartbeats did you count?", // Q11
+      question: "Now measure your heartbeat for 15 seconds. How many heartbeats did you count?", 
       description: "1: between 1 and 5, 10: between 46 and 50"
       },
     ];
-    
+
       // main method to create questions and test and display everything
       $(document).ready(function() {
         var moodtest = new MoodTest();
@@ -79,7 +91,13 @@ class MoodDisplay extends React.Component{
         }
         var test_container = $('#moodtest');
         moodtest.display(test_container);
+        $("#moodtest").on('end', function(event, param1) {
+          component.props.callback(param1.primaryList, param1.secondaryList, param1.avoidList);
+          console.log("here!");
+        });
       });
+
+      
     }
 
     componentDidMount() {
