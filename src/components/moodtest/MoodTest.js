@@ -59,21 +59,21 @@ MoodTest.prototype.display = function(container) {
       document.getElementById("value").style.visibility = "hidden";
       // You successfully submitted all your answers! Categories have been updated in the other tab.
       if (predMoodOut == "anxiety") {
-        updateBackgroundColor("#99d9ea");
         $('#predicted-mood').text('Predicted Mood: Anxiety');
         $('#end-message').text('Some days can contain a lot of stress in them, it’s important to take some time out to relax though. We recommend enjoying something beautiful such as music or art, or maybe taking in something entertaining or inspiring.');
+        updateBackgroundColor("#99d9ea");
       } else if (predMoodOut == "sadness") {
-        updateBackgroundColor("#d3eedd");
         $('#predicted-mood').text('Predicted Mood: Sadness');
         $('#end-message').text('You might be feeling a bit down at the moment and so we hope you feel better soon. In the meantime we recommend some light or silly entertainment, we also recommend appreciating something pretty such as some art or music.');
+        updateBackgroundColor("#d3eedd");
       } else if (predMoodOut == "anger") {
-        updateBackgroundColor("#c8e0e0");
         $('#predicted-mood').text('Predicted Mood: Anger');
         $('#end-message').text('Sometimes things can get quite tense and we need to find some space and time to keep calm or work through those feelings. We’ve suggested you enjoy something funny or entertaining, or something intellectually stimulating to take your mind off things.');
+        updateBackgroundColor("#c8e0e0");
       } else if (predMoodOut == "happiness") {
-        updateBackgroundColor("#ffffbf");
         $('#predicted-mood').text('Predicted Mood: Happiness');
         $('#end-message').text('It’s great that you’re feeling good! We’ve recommended that you try and use now to take in some news, or maybe engage with something more intellectually challenging such as some political or academic content.');
+        updateBackgroundColor("#ffffbf");
       }
       $('#next-question').slideUp();
       $('#end-page').slideDown();
