@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import {predictMood} from "./MoodPredict.js";
 import {generateCategoryLists} from "./returnCategoryLists.js";
-import { updateBackgroundColor } from '../../changeBackgroundColor.js';
+import {updateBackgroundColor} from "../../../build/start.js"
 export default class MoodTest {
     constructor() {
         this.questions = [];
