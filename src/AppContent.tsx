@@ -38,7 +38,7 @@ class AppContent extends React.Component<IAppProps, IAppState> {
         console.log(CategoryType[category]);
         if(navigator.serviceWorker.controller){
             console.log(`This page is currently controlled by: ${navigator.serviceWorker.controller}`);
-            navigator.serviceWorker.controller.postMessage(CategoryType[category]);
+            navigator.serviceWorker.controller.postMessage({"category": category, "isOn": this.state.is_on.get(category)});
         }else{
             console.log("no service");
         }
@@ -64,6 +64,14 @@ class AppContent extends React.Component<IAppProps, IAppState> {
         this.setState({
             primary_list: primaryList, secondary_list: secondaryList, avoid_list: avoidList
         });
+        this.state.is_on.forEach((value, key) =>{
+            if(navigator.serviceWorker.controller){
+                navigator.serviceWorker.controller.postMessage({"category": value, "isOn": key});
+            }else{
+                console.log("no service");
+            }
+        });
+        
     } 
 
     render() {
