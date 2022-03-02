@@ -4,7 +4,7 @@ export async function changeBackgroundColor() {
       r => {
         chrome.scripting.executeScript({
             target: {tabId: r[0].id!}, 
-            files: ['changeBackgroundColor.js']})
+            files: ['scripts/changeBackgroundColor.js']})
       }
     ));
 }
