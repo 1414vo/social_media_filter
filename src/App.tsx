@@ -6,6 +6,7 @@ import CategoryType from './models/CategoryType';
 import Category from './models/Category';
 import Tab from './components/Tab';
 import AppContent from './AppContent';
+import { changeBackgroundColor } from './backgroundColor';
 
 interface IAppProps {}
 
@@ -25,6 +26,9 @@ class App extends React.Component<IAppProps, IAppState> {
     this.setState({
       tabIndex: i
     });
+    if (i == 1) {
+      changeBackgroundColor();
+    }
   }
 
   render() {
