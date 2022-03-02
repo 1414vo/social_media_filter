@@ -1,4 +1,4 @@
-var categories = new Set([1,2,3]);
+var active_categories = new Set();
 
 function set_to_json(set){
     json_string = "[";
@@ -7,7 +7,7 @@ function set_to_json(set){
 
     for (let element of set){
         if (addComma) json_string += ",";
-        json_string += "\"" + element + "\"";
+        json_string += element;
         addComma = true;
     }
 
@@ -40,9 +40,3 @@ self.addEventListener('message', function (msg) {
         console.log(categoryMap);
     }
 });
-
-setInterval(() => {
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {categories: set_to_json(categories)});
-    }); 
-}, 1000);

@@ -82,22 +82,28 @@ function displayTweets(tweets){
 
 function requestScore(text){
     const xhr = new XMLHttpRequest();
+    const params = "text=" + "test";
 
-    xhr.open("POST", "http://127.0.0.1:5000/tweet?value=" + text);
+    //xhr.open("GET", "http://127.0.0.1:5000/time");
+    xhr.open("POST", "http://127.0.0.1:5000/score");
 
-    xhr.send();
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    //xhr.setRequestHeader("Access-Control-Allow-Origin", "true");
 
     xhr.onload = function(){
+    //xhr.onreadystatechange = function(){      
         if (xhr.status == 200){
+          console.log(xhr.responseText);
+          var data = JSON.parse(xhr.responseText);
+          console.log(data);
 
         } else if(xhr.status == 404){
-            console.log("Error: No classification recieved!");
-
-            var data = JSON.parse(xhr.responseText);
-
-            console.log(data);
+            console.log("Error: No classification recieved!");            
         }
     }
+
+    xhr.send(params);
+    //xhr.send();
 
     //xhr.onerror = function(){...}
 

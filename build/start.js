@@ -1,4 +1,8 @@
+<<<<<<< refs/remotes/origin/main
 var categories = new Set([1,2,3]);
+=======
+var active_categories = new Set();
+>>>>>>> HTTP requests
 
 function set_to_json(set){
     json_string = "[";
@@ -7,7 +11,11 @@ function set_to_json(set){
 
     for (let element of set){
         if (addComma) json_string += ",";
+<<<<<<< refs/remotes/origin/main
         json_string += "\"" + element + "\"";
+=======
+        json_string += element;
+>>>>>>> HTTP requests
         addComma = true;
     }
 
@@ -25,6 +33,7 @@ secondaryList = [];
 avoidList = [];
 
 self.addEventListener('message', function (msg) {
+<<<<<<< refs/remotes/origin/main
     if(msg.data['changeCategory']){
         console.log(msg, msg.data.changeCategory);
         categoryMap = Array.from(msg.data.changeCategory);
@@ -46,3 +55,17 @@ setInterval(() => {
         chrome.tabs.sendMessage(tabs[0].id, {categories: set_to_json(categories)});
     }); 
 }, 1000);
+=======
+    console.log("ServiceWorkerMsg:")
+    console.log(msg.data);
+    if (msg.data.isOn){
+        active_categories.add(msg.data.category)
+    } else {
+        active_categories.delete(msg.data.category);
+    }
+    console.log(active_categories);
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, set_to_json(active_categories));
+    });
+});
+>>>>>>> HTTP requests
