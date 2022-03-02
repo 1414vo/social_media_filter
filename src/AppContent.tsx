@@ -5,12 +5,6 @@ import CategoryType from './models/CategoryType';
 import Category from './models/Category';
 import MoodDisplay from './components/moodtest/MoodDisplay';
 
-export function updateBackgroundColor(color: string) {
-    if(navigator.serviceWorker.controller){
-        navigator.serviceWorker.controller.postMessage({"color": color});
-    }
-}
-
 interface IAppProps {
     tabIndex: number;
 }

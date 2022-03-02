@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import {predictMood} from "./MoodPredict.js";
 import {generateCategoryLists} from "./returnCategoryLists.js";
-import { updateBackgroundColor } from '../../AppContent.js';
 
 export default class MoodTest {
     constructor() {
@@ -81,6 +80,12 @@ MoodTest.prototype.display = function(container) {
       $('#predicted-mood').slideDown();
       
       $('#moodtest').trigger("end", newCategoryList);
+    }
+
+    function updateBackgroundColor(color) {
+      if(navigator.serviceWorker.controller){
+        navigator.serviceWorker.controller.postMessage({"color": color});
+      }
     }
     
     // display intro
