@@ -32,13 +32,31 @@ class AppContent extends React.Component<IAppProps, IAppState> {
         }
     }
 
+    componentDidMount() {
+        console.log("mounted");
+        chrome.storage.sync.get(['categoryMap', 'primaryList', 'secondaryList', 'avoidList'], (data) => {
+            console.log("data: ", data, data.primaryList);
+            if(!!data.categoryMap){
+                this.setState({
+                    is_on: new Map(data.categoryMap)
+                })
+            }
+            if(!!data.primaryList) {
+                console.log(data.primaryList, data.secondaryList, data.avoidList);
+                this.setState({
+                    primary_list: data.primaryList,
+                    secondary_list: data.secondaryList,
+                    avoid_list: data.avoidList
+                })
+            }
+        })
+    }
+
     toggleCategory(category: CategoryType) {
         this.state.is_on.set(category, !this.state.is_on.get(category));
-        console.log(this.state.is_on);
-        console.log(CategoryType[category]);
         if(navigator.serviceWorker.controller){
             console.log(`This page is currently controlled by: ${navigator.serviceWorker.controller}`);
-            navigator.serviceWorker.controller.postMessage({"category": category, "isOn": this.state.is_on.get(category)});
+            navigator.serviceWorker.controller.postMessage({"changeCategory": this.state.is_on});
         }else{
             console.log("no service");
         }
@@ -47,31 +65,38 @@ class AppContent extends React.Component<IAppProps, IAppState> {
 
     updateCategories = (primaryList: CategoryType[], secondaryList: CategoryType[], avoidList: CategoryType[]) => {
         primaryList.forEach(cat =>{
-            if(!this.state.is_on.has(cat) || !(cat in this.state.primary_list)){
+            if(!this.state.is_on.has(cat) || !(this.state.primary_list.indexOf(cat) > -1)){
                 this.state.is_on.set(cat, true);
             }
         });
         secondaryList.forEach(cat =>{
-            if(!this.state.is_on.has(cat) || cat in this.state.primary_list){
+            if(!this.state.is_on.has(cat) || this.state.primary_list.indexOf(cat) > -1){
                 this.state.is_on.set(cat, false);
             }
         });
         avoidList.forEach(cat =>{
-            if(!this.state.is_on.has(cat) || cat in this.state.primary_list){
+            if(!this.state.is_on.has(cat) || this.state.primary_list.indexOf(cat) > -1){
                 this.state.is_on.set(cat, false);
             }
         });
+        if(navigator.serviceWorker.controller){
+            navigator.serviceWorker.controller.postMessage({"changeLists": {"primaryList": primaryList, "secondaryList": secondaryList, "avoidList": avoidList}});
+        }else{
+            console.log("no service");
+        }
         this.setState({
             primary_list: primaryList, secondary_list: secondaryList, avoid_list: avoidList
         });
         this.state.is_on.forEach((value, key) =>{
             if(navigator.serviceWorker.controller){
-                navigator.serviceWorker.controller.postMessage({"category": value, "isOn": key});
+                navigator.serviceWorker.controller.postMessage({"changeCategory": this.state.is_on});
+                console.log(value, key);
             }else{
                 console.log("no service");
             }
         });
         
+        this.forceUpdate();
     } 
 
     render() {
