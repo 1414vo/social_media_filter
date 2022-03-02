@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-, "public/start.js", "build/changeBackgroundColor.js"  ]
+, "public/start.js", "changeBackgroundColor.js"  ]
 }
