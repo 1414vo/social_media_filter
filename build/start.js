@@ -7,6 +7,6 @@ chrome.runtime.onInstalled.addListener((details) =>
 self.addEventListener('message', function (msg) {
     console.log(msg.data);
     if (msg.data['color']) {
-        changeColor(msg.color);
+        changeColor(msg.data['color']);
     }
 });
