@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import CategoryBox from './components/CategoryBox';
 import CategoryType from './models/CategoryType';
-import Category from './models/Category';
 import MoodDisplay from './components/moodtest/MoodDisplay';
 
 interface IAppProps {

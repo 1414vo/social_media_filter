@@ -2,7 +2,7 @@ from sentence_transformers import SentenceTransformer
 import numpy as np
 
 politics = "San Francisco voters oust three school board members in recall vote, CNN projects"
-topics = ["Politics", "Entertainment", "Art", "Music", "Lifestyle", "Academic", "Comedy", "Inspirational", "News", "Business", "Tech"]
+topics = ["Politics", "Entertainment", "Art", "Music", "Lifestyle", "Academic", "Comedy", "Inspirational", "News", "Business", "Tech", "Sports"]
 prompts = {topic: f"A tweet about {topic}" for topic in topics}
 
 
