@@ -7,7 +7,7 @@
       "service_worker": "start.js"
   },
   "permissions": [
-      "history", "tabs", "webNavigation","scripting"
+      "history", "tabs", "webNavigation","scripting", "storage"
   ],
   "host_permissions": [
       "https://*.twitter.com/*"

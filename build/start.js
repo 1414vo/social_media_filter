@@ -1,5 +1,3 @@
-import {changeColor} from "./changeBackgroundColor.js";
-
 chrome.runtime.onInstalled.addListener((details) =>
 {
     console.log("Installed");
@@ -7,6 +5,19 @@ chrome.runtime.onInstalled.addListener((details) =>
 self.addEventListener('message', function (msg) {
     console.log(msg.data);
     if (msg.data['color']) {
-        changeColor(msg.data['color']);
+        chrome.storage.sync.set({"color": msg.data['color']});
+        changeBackgroundColor(msg.data['color']);
     }
 });
+
+async function changeBackgroundColor (color) {
+    await chrome.tabs.query({active: true, currentWindow: true}, 
+        (
+          r => {
+            chrome.scripting.executeScript({ 
+                target: { tabId: r[0].id }, 
+                files: ['changeBackgroundColor.js'], 
+              });
+        }
+      ));
+}
