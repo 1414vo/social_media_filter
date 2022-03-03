@@ -1,9 +1,3 @@
-<<<<<<< Updated upstream
-<<<<<<< refs/remotes/origin/main
-var categories = new Set([1,2,3]);
-=======
-=======
->>>>>>> Stashed changes
 var active_categories = new Set();
 
 function set_to_json(set){
@@ -13,12 +7,6 @@ function set_to_json(set){
 
     for (let element of set){
         if (addComma) json_string += ",";
-<<<<<<< Updated upstream
-<<<<<<< refs/remotes/origin/main
-        json_string += "\"" + element + "\"";
-=======
-=======
->>>>>>> Stashed changes
         json_string += element;
         addComma = true;
     }
@@ -37,22 +25,19 @@ secondaryList = [];
 avoidList = [];
 
 self.addEventListener('message', function (msg) {
-<<<<<<< Updated upstream
-<<<<<<< refs/remotes/origin/main
-=======
->>>>>>> Stashed changes
     if(msg.data['changeCategory']){
         console.log(msg, msg.data.changeCategory);
         categoryMap = Array.from(msg.data.changeCategory);
         this.chrome.storage.sync.set({'categoryMap': categoryMap});
         console.log(categoryMap);
         active_categories = new Set();
+        /*
         for(const el of categoryMap){
             console.log(el);
             if(el[1]){
                 active_categories.add(el[0]);
             }
-        }
+        }*/
         console.log(active_categories);
     }
     if(msg.data['changeLists']) {

@@ -1,4 +1,8 @@
-var active_categories = new Set(["Politics", "Entertainment", "Art", "Tech"]); // Set of categories currently active
+var active_categories;
+chrome.storage.sync.get(['categoryMap'], (result) => {
+  active_categories = readCategoryMap(result.categoryMap);
+  console.log("categories: ",active_categories);
+}) // Set of categories currently active
 
 // chrome.runtime.onMessage.addListener(
 //   function(request, sender, sendResponse) {
@@ -54,8 +58,8 @@ function parseTweets(tweets){
         // TODO: Send http request to classify text
         requestScore(text, function(scores){
           tweetScores.set(text, scores);
+          console.log(text, tweetScores.get(text));
         });
-
         // TEMP: randomly decide whether to display tweets
         //tweetScores.set(text, Math.random() > 0.5);
     }
@@ -72,7 +76,7 @@ function displayTweets(tweets){
 
         // Determine whether or not to display tweet
         if (scores == null){
-          tweet.style.display = "None";
+          tweet.style.display = "Block";
         } else{
           var category = null;
           var max = -Infinity;
@@ -83,11 +87,9 @@ function displayTweets(tweets){
             }
           }
 
-          active_categories.add("Tech");
-
           //console.log(category + " " + active_categories.has(category));
 
-          if (!active_categories.has(category)){
+          if (!active_categories.has(categoryToNumber(category))){
             tweet.style.display = "None";
           } else{
             tweet.style.display = "Block";
@@ -103,10 +105,38 @@ function displayTweets(tweets){
         // For now, change text
     }
 }
-
+function categoryToNumber(category) {
+  switch(category){
+    case "Politics":
+      return 0;
+    case "Entertainment":
+      return 1;
+    case "Art": 
+      return 2;
+    case "Music":
+      return 3;
+    case "Lifestyle":
+      return 4;
+    case "Academic":
+      return 5;
+    case "Comedy":
+      return 6;
+    case "Inspirational":
+      return 7;
+    case "News":
+      return 8;
+    case "Business":
+      return 9;
+    case "Tech":
+      return 10;
+    case "Sports":
+      return 11;
+    default:
+      return 5;
+  }
+}
 function requestScore(text, set_score_func){
     const xhr = new XMLHttpRequest();
-    //const params = "text=" + "test";
     const params = "text=" + text;
 
     //xhr.open("GET", "http://127.0.0.1:5000/time");
@@ -118,9 +148,9 @@ function requestScore(text, set_score_func){
     xhr.onload = function(){
     //xhr.onreadystatechange = function(){      
         if (xhr.status == 200){
-          console.log(xhr.responseText);
+          //console.log(xhr.responseText);
           var data = JSON.parse(xhr.responseText);
-          console.log(data);
+          //console.log(data);
 
           set_score_func(data);
 
@@ -142,6 +172,20 @@ function run(){
     parseTweets(tweets);
     displayTweets(tweets);
 }
-
+function readCategoryMap(categoryMap){
+  active_categories = new Set();
+  for(category of categoryMap) {
+    if(category[1]){
+      active_categories.add(category[0]);
+    }
+  }
+  return active_categories;
+}
 setInterval(run, 10);
+chrome.storage.onChanged.addListener(function(changes, area){
+  if(area === 'sync' && changes.categoryMap?.newValue) {
+    active_categories = readCategoryMap(changes.categoryMap.newValue);
+    console.log("categories:", active_categories);
+  }
+})
 //window.onchange = run;

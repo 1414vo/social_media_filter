@@ -1,30 +1,5 @@
 {
   "files": {
-<<<<<<< Updated upstream
-    "main.css": "/static/css/main.bec0e133.css",
-<<<<<<< refs/remotes/origin/main
-    "main.js": "/static/js/main.af2c5acc.js",
-    "static/js/787.37621073.chunk.js": "/static/js/787.37621073.chunk.js",
-    "index.html": "/index.html",
-    "main.bec0e133.css.map": "/static/css/main.bec0e133.css.map",
-    "main.af2c5acc.js.map": "/static/js/main.af2c5acc.js.map",
-=======
-    "main.js": "/static/js/main.cf1b0128.js",
-    "static/js/787.37621073.chunk.js": "/static/js/787.37621073.chunk.js",
-    "index.html": "/index.html",
-    "main.bec0e133.css.map": "/static/css/main.bec0e133.css.map",
-    "main.cf1b0128.js.map": "/static/js/main.cf1b0128.js.map",
->>>>>>> HTTP requests
-    "787.37621073.chunk.js.map": "/static/js/787.37621073.chunk.js.map"
-  },
-  "entrypoints": [
-    "static/css/main.bec0e133.css",
-<<<<<<< refs/remotes/origin/main
-    "static/js/main.af2c5acc.js"
-=======
-    "static/js/main.cf1b0128.js"
->>>>>>> HTTP requests
-=======
     "main.css": "/static/css/main.28a2dfda.css",
     "main.js": "/static/js/main.a0ccfb09.js",
     "static/js/787.37621073.chunk.js": "/static/js/787.37621073.chunk.js",
@@ -36,6 +11,5 @@
   "entrypoints": [
     "static/css/main.28a2dfda.css",
     "static/js/main.a0ccfb09.js"
->>>>>>> Stashed changes
   ]
 }

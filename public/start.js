@@ -31,12 +31,13 @@ self.addEventListener('message', function (msg) {
         this.chrome.storage.sync.set({'categoryMap': categoryMap});
         console.log(categoryMap);
         active_categories = new Set();
+        /*
         for(const el of categoryMap){
             console.log(el);
             if(el[1]){
                 active_categories.add(el[0]);
             }
-        }
+        }*/
         console.log(active_categories);
     }
     if(msg.data['changeLists']) {
@@ -47,15 +48,6 @@ self.addEventListener('message', function (msg) {
         this.chrome.storage.sync.set({'primaryList': primaryList, 'secondaryList': secondaryList, 'avoidList': avoidList});
         console.log(categoryMap);
     }
-<<<<<<< Updated upstream
-});
-=======
     
 });
 
-setInterval(() => {
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, set_to_json(active_categories));
-    });
-}, 1000);
->>>>>>> Stashed changes
