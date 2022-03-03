@@ -1,12 +1,13 @@
 .category_box {
     border-style: solid;
-    border-color: white;
+    border-color: #e0e0e0;
     border-radius: 10px;
+    border-width: 5px;
     margin: 10px;
     padding: 5px;
     text-align: center;
+    transition-duration: 0.4s;
 }
-
 .toxic {
     background-color: #cccfce;
     color: black;
@@ -14,6 +15,11 @@
     height: 18px;
     font-size: 14px;
     line-height: 18px;
+}
+
+.on {
+    border-style: solid;
+    border-color: #42a504;
 }
 
 .toxic:hover {
@@ -34,18 +40,25 @@
 }
 
 .good {
-    background-color: #63d6af;
+    background-color: #95e5a9;
     color: black;
     width: 90%;
     height: 30px;
     font-size: 20px;
     line-height: 30px;
 }
+/*
+.off {
+    background-color: #bbbbbb !important;
+}
 
+.off:hover {
+    background-color: #aaaaaa !important;
+}
+*/
 .good:hover {
     background-color: #45c49a;
 }
-
 .default {
     background-color: gray;
     color: black;

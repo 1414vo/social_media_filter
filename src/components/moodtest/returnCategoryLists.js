@@ -7,7 +7,7 @@ export function generateCategoryLists(userMood) {
     var secondaryList = [];
     var avoidList = [];
 
-    var categories = [CategoryType.Politics, CategoryType.Entertainment, CategoryType.Art, CategoryType.Lifestyle , CategoryType.Music, CategoryType.Academic, CategoryType.Comedy, CategoryType.Inspirational, CategoryType.News, CategoryType.Business, CategoryType.Tech];
+    var categories = [CategoryType.Politics, CategoryType.Entertainment, CategoryType.Art, CategoryType.Lifestyle , CategoryType.Music, CategoryType.Academic, CategoryType.Comedy, CategoryType.Inspirational, CategoryType.News, CategoryType.Business, CategoryType.Tech, CategoryType.Sports];
 
 
     function intersection(arr1, arr2) {
@@ -42,7 +42,7 @@ export function generateCategoryLists(userMood) {
     switch (userMood) {
         case "anxiety":
             primaryList = [CategoryType.Music, CategoryType.Art, CategoryType.Entertainment, CategoryType.Inspirational];
-            avoidList = [CategoryType.News, CategoryType.Politics, CategoryType.Business, CategoryType.Lifestyle];
+            avoidList = [CategoryType.News, CategoryType.Politics, CategoryType.Business, CategoryType.Lifestyle, CategoryType.Sports];
             secondaryList = difference(avoidList, difference(categories, primaryList));
             break;
 
@@ -53,7 +53,7 @@ export function generateCategoryLists(userMood) {
             break;
 
         case "anger":
-            primaryList = [CategoryType.Music, CategoryType.Entertainment, CategoryType.Comedy, CategoryType.Academic];
+            primaryList = [CategoryType.Music, CategoryType.Entertainment, CategoryType.Comedy, CategoryType.Academic, CategoryType.Sports];
             avoidList = [CategoryType.Inspirational];
             secondaryList = difference(avoidList, difference(categories, primaryList));
             break;

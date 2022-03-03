@@ -1,9 +1,5 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import CategoryBox from './components/CategoryBox';
-import CategoryType from './models/CategoryType';
-import Category from './models/Category';
 import Tab from './components/Tab';
 import AppContent from './AppContent';
 import { changeBackgroundColor } from './backgroundColor';

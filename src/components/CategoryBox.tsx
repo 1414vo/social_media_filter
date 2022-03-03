@@ -1,25 +1,39 @@
 import React from 'react';
+import { isJSDocNamepathType } from 'typescript';
 import CategoryType from '../models/CategoryType';
-import './Category_Box.css';
+import './CategoryBox.css';
 
 interface IBoxProps {
   category: CategoryType;
   onClick: any;
   positivity: number;
+  isOnMap: Map<CategoryType, boolean>;
 }
-class CategoryBox extends React.Component<IBoxProps> {
+interface IBoxState {
+  isOn: boolean | undefined;
+}
+class CategoryBox extends React.Component<IBoxProps, IBoxState> {
     constructor(props: IBoxProps) {
         super(props);
+        this.state = {
+          isOn : this.props.isOnMap.has(this.props.category) ? this.props.isOnMap.get(this.props.category) : (this.props.positivity == 2 ? true : false)
+        };
+    }
+
+    static getDerivedStateFromProps(props: IBoxProps, state: IBoxProps) {
+      return {
+        isOn : props.isOnMap.has(props.category) ? props.isOnMap.get(props.category) : (props.positivity == 2 ? true : false)
+      };
     }
 
     getBoxStyle(type: number) {
       switch(type) {
         case 0:
-          return "toxic";
+          return this.state.isOn ? "toxic on" : "toxic";
         case 1:
-          return "medium";
+          return this.state.isOn ? "medium on" : "medium";
         case 2:
-          return "good";
+          return this.state.isOn ? "good on" : "good off";
         default:
           return "default";
       }

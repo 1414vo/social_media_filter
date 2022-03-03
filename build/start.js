@@ -1,23 +1,28 @@
+var active_categories = new Set();
+
+function set_to_json(set){
+    json_string = "[";
+
+    var addComma = false;
+
+    for (let element of set){
+        if (addComma) json_string += ",";
+        json_string += element;
+        addComma = true;
+    }
+
+    return json_string + "]";
+}
+
 chrome.runtime.onInstalled.addListener((details) =>
 {
     console.log("Installed");
 });
-self.addEventListener('message', function (msg) {
-    console.log(msg.data);
-    if (msg.data['color']) {
-        chrome.storage.sync.set({"color": msg.data['color']});
-        changeBackgroundColor(msg.data['color']);
-    }
-});
 
-async function changeBackgroundColor (color) {
-    await chrome.tabs.query({active: true, currentWindow: true}, 
-        (
-          r => {
-            chrome.scripting.executeScript({ 
-                target: { tabId: r[0].id }, 
-                files: ['changeBackgroundColor.js'], 
-              });
-        }
-      ));
-}
+categoryMap = [];
+primaryList = [];
+secondaryList = [];
+avoidList = [];
+
+self.addEventListener('message', function (msg) {
+
