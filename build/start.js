@@ -1,8 +1,10 @@
+<<<<<<< Updated upstream
 <<<<<<< refs/remotes/origin/main
 var categories = new Set([1,2,3]);
 =======
+=======
+>>>>>>> Stashed changes
 var active_categories = new Set();
->>>>>>> HTTP requests
 
 function set_to_json(set){
     json_string = "[";
@@ -11,11 +13,13 @@ function set_to_json(set){
 
     for (let element of set){
         if (addComma) json_string += ",";
+<<<<<<< Updated upstream
 <<<<<<< refs/remotes/origin/main
         json_string += "\"" + element + "\"";
 =======
+=======
+>>>>>>> Stashed changes
         json_string += element;
->>>>>>> HTTP requests
         addComma = true;
     }
 
@@ -33,12 +37,23 @@ secondaryList = [];
 avoidList = [];
 
 self.addEventListener('message', function (msg) {
+<<<<<<< Updated upstream
 <<<<<<< refs/remotes/origin/main
+=======
+>>>>>>> Stashed changes
     if(msg.data['changeCategory']){
         console.log(msg, msg.data.changeCategory);
         categoryMap = Array.from(msg.data.changeCategory);
         this.chrome.storage.sync.set({'categoryMap': categoryMap});
         console.log(categoryMap);
+        active_categories = new Set();
+        for(const el of categoryMap){
+            console.log(el);
+            if(el[1]){
+                active_categories.add(el[0]);
+            }
+        }
+        console.log(active_categories);
     }
     if(msg.data['changeLists']) {
         console.log(msg);
@@ -48,24 +63,11 @@ self.addEventListener('message', function (msg) {
         this.chrome.storage.sync.set({'primaryList': primaryList, 'secondaryList': secondaryList, 'avoidList': avoidList});
         console.log(categoryMap);
     }
+    
 });
 
 setInterval(() => {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {categories: set_to_json(categories)});
-    }); 
-}, 1000);
-=======
-    console.log("ServiceWorkerMsg:")
-    console.log(msg.data);
-    if (msg.data.isOn){
-        active_categories.add(msg.data.category)
-    } else {
-        active_categories.delete(msg.data.category);
-    }
-    console.log(active_categories);
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         chrome.tabs.sendMessage(tabs[0].id, set_to_json(active_categories));
     });
-});
->>>>>>> HTTP requests
+}, 1000);
