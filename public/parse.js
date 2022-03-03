@@ -1,15 +1,15 @@
-var active_categories; // Set of categories currently active
+var active_categories = new Set(["Politics", "Entertainment", "Art", "Tech"]); // Set of categories currently active
 
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    console.log(sender.tab ?
-                "from a content script:" + sender.tab.url :
-                "from the extension");
-    // Recieved a message, for now assume this message tells us to change categories
-    active_categories = request.categories;
-    console.log(active_categories);
-  }
-);
+// chrome.runtime.onMessage.addListener(
+//   function(request, sender, sendResponse) {
+//     console.log(sender.tab ?
+//                 "from a content script:" + sender.tab.url :
+//                 "from the extension");
+//     // Recieved a message, for now assume this message tells us to change categories
+//     active_categories = request.categories;
+//     console.log(active_categories);
+//   }
+// );
 
 var parsedTweets = new Set();
 
@@ -52,10 +52,12 @@ function parseTweets(tweets){
         tweetScores.set(text, null);
         
         // TODO: Send http request to classify text
-        requestScore(text);
+        requestScore(text, function(scores){
+          tweetScores.set(text, scores);
+        });
 
         // TEMP: randomly decide whether to display tweets
-        tweetScores.set(text, Math.random() > 0.5);
+        //tweetScores.set(text, Math.random() > 0.5);
     }
 
     //document.body.insertAdjacentHTML("beforebegin", "<p>" + text + "</p>");
@@ -66,23 +68,46 @@ function parseTweets(tweets){
 
 function displayTweets(tweets){
     for (tweet of tweets){
-        var score = tweetScores.get(getTweetText(tweet));
+        var scores = tweetScores.get(getTweetText(tweet));
 
         // Determine whether or not to display tweet
+        if (scores == null){
+          tweet.style.display = "None";
+        } else{
+          var category = null;
+          var max = -Infinity;
+          for (const [key, value] of Object.entries(scores.category_scores)){
+            if (value > max){
+              max = value;
+              category = key;
+            }
+          }
 
-        // TEMP
-        if (!score){
-            //tweet.innerText = "HIDDEN";
-            tweet.style.display = "None";            
+          active_categories.add("Tech");
+
+          //console.log(category + " " + active_categories.has(category));
+
+          if (!active_categories.has(category)){
+            tweet.style.display = "None";
+          } else{
+            tweet.style.display = "Block";
+          }
         }
+
+        // // TEMP
+        // if (!score){
+        //     //tweet.innerText = "HIDDEN";
+        //     tweet.style.display = "None";            
+        // }
         
         // For now, change text
     }
 }
 
-function requestScore(text){
+function requestScore(text, set_score_func){
     const xhr = new XMLHttpRequest();
-    const params = "text=" + "test";
+    //const params = "text=" + "test";
+    const params = "text=" + text;
 
     //xhr.open("GET", "http://127.0.0.1:5000/time");
     xhr.open("POST", "http://127.0.0.1:5000/score");
@@ -96,6 +121,8 @@ function requestScore(text){
           console.log(xhr.responseText);
           var data = JSON.parse(xhr.responseText);
           console.log(data);
+
+          set_score_func(data);
 
         } else if(xhr.status == 404){
             console.log("Error: No classification recieved!");            
