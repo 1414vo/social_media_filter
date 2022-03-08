@@ -127,7 +127,7 @@ function displayTweets(tweets) {
 
     // Determine whether or not to display tweet
     if (category == null) { // If the tweet has not been classified yet, we display it
-      tweet.style.display = "flex";
+      tweet.style.display = "none";
     } else {
       // If the tweet has been categorised, only display it if the category is one of the active_categories
       if (!active_categories.has(categoryToNumber(category))) {
