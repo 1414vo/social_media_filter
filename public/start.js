@@ -24,24 +24,9 @@ primaryList = [];
 secondaryList = [];
 avoidList = [];
 
-async function changeBackgroundColor (color) {
-    await chrome.tabs.query({active: true, currentWindow: true}, 
-        (
-          r => {
-            chrome.scripting.executeScript({ 
-                target: { tabId: r[0].id }, 
-                files: ['changeBackgroundColor.js'], 
-              });
-        }
-      ));
-}
 self.addEventListener('message', function (msg) {
     console.log(msg.data);
 
-    if (msg.data['color']) {
-        chrome.storage.sync.set({"color": msg.data['color']});
-        changeBackgroundColor(msg.data['color']);
-    }
     if(msg.data['changeCategory']){
         console.log(msg, msg.data.changeCategory);
         categoryMap = Array.from(msg.data.changeCategory);
