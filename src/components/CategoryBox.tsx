@@ -29,9 +29,9 @@ class CategoryBox extends React.Component<IBoxProps, IBoxState> {
     getBoxStyle(type: number) {
       switch(type) {
         case 0:
-          return this.state.isOn ? "toxic on" : "toxic";
+          return this.state.isOn ? "toxic on" : "toxic off";
         case 1:
-          return this.state.isOn ? "medium on" : "medium";
+          return this.state.isOn ? "medium on" : "medium off";
         case 2:
           return this.state.isOn ? "good on" : "good off";
         default:
@@ -42,7 +42,9 @@ class CategoryBox extends React.Component<IBoxProps, IBoxState> {
     render() {
         return (
             <div onClick={this.props.onClick} className={`category_box ${this.getBoxStyle(this.props.positivity)}`}>
-              {CategoryType[this.props.category]}
+              <div className='text'>{CategoryType[this.props.category]}</div>
+              <div className={`leftCircle ${this.state.isOn?'circleOn':''}`}></div>
+              <div className={`rightCircle ${this.state.isOn?'':'circleOff'}`}></div>
             </div>
           );
     }

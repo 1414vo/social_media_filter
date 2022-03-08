@@ -48,7 +48,7 @@ class AppContent extends React.Component<IAppProps, IAppState> {
                     avoid_list: data.avoidList
                 })
             }
-        })
+        });
     }
 
     toggleCategory(category: CategoryType) {
@@ -103,16 +103,19 @@ class AppContent extends React.Component<IAppProps, IAppState> {
             return (
                 <div className="row">
                     <div className="column-3">
+                    <div>Recommended:</div>
                     {
                         this.state.primary_list.map(cat => <CategoryBox key={cat} category={cat} positivity={2} onClick={() => this.toggleCategory(cat)} isOnMap={this.state.is_on}/>)
                     }
                     </div>
                     <div className="column-2">
+                    <div>Secondary:</div>
                     {
                         this.state.secondary_list.map(cat => <CategoryBox key={cat} category={cat} positivity={1} onClick={() => this.toggleCategory(cat)} isOnMap={this.state.is_on}/>)
                     }
                     </div>
                     <div className="column-1">
+                    <div>Avoid:</div>
                     {
                         this.state.avoid_list.map(cat => <CategoryBox key={cat} category={cat} positivity={0} onClick={() => this.toggleCategory(cat)} isOnMap={this.state.is_on}/>)
                     }
