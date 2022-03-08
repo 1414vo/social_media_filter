@@ -11,6 +11,10 @@ class Tab extends React.Component<ITabProps> {
     constructor(props: ITabProps) {
         super(props);
     }
+    /**
+     * Renders the tab.
+     * @returns The rendered component.
+     */
     render() {
         if(this.props.isSelected) {
             return (<div className="Tab-selected">

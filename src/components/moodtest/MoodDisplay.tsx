@@ -93,6 +93,7 @@ class MoodDisplay extends React.Component<IMoodDisplayProps>{
         }
         var test_container = $('#moodtest');
         moodtest.display(test_container);
+        // Send message to update the category lists on quiz completion.
         $("#moodtest").on('end', function(event, param1) {
           component.props.callback(param1.primaryList, param1.secondaryList, param1.avoidList);
           console.log("here!");
@@ -105,7 +106,10 @@ class MoodDisplay extends React.Component<IMoodDisplayProps>{
     componentDidMount() {
       this.displayComponent();
     }
-
+    /**
+     * Renders the questionnaire.
+     * @returns The rendered component.
+     */
     render(){
         return (<div id="moodtest">
         <div>

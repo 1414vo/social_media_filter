@@ -18,6 +18,10 @@ class App extends React.Component<IAppProps, IAppState> {
     };
   }
 
+  /**
+   * Changes the active tab.
+   * @param i The index of the new tab.
+   */
   updateTabIndex(i: number) {
     this.setState({
       tabIndex: i
@@ -26,7 +30,10 @@ class App extends React.Component<IAppProps, IAppState> {
       changeBackgroundColor();
     }
   }
-
+  /**
+   * Renders the body of the application popup.
+   * @returns The rendered object.
+   */
   render() {
     return (
       <div className="App">
