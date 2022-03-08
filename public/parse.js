@@ -1,24 +1,20 @@
+// The categories of tweets which should be displayed are stored in a set in active_categories.
 var active_categories;
+
+// When the script loads (when the user loads twitter), the script needs to load the current categories.
 chrome.storage.sync.get(['categoryMap'], (result) => {
   active_categories = readCategoryMap(result.categoryMap);
   console.log("categories: ",active_categories);
-}) // Set of categories currently active
+})
 
-// chrome.runtime.onMessage.addListener(
-//   function(request, sender, sendResponse) {
-//     console.log(sender.tab ?
-//                 "from a content script:" + sender.tab.url :
-//                 "from the extension");
-//     // Recieved a message, for now assume this message tells us to change categories
-//     active_categories = request.categories;
-//     console.log(active_categories);
-//   }
-// );
-
+// The tweet objects which have been processed are stored in a set
 var parsedTweets = new Set();
 
+// The text of tweets which have been processed are mapped to their scores (or null if they've not recieve a score yet)
 var tweetScores = new Map();
 
+/* This function finds the text within a tweet by looking for <span> tags since by inspection these all text in
+tweets are within span tags. */
 function getTweetText(tweet){
     var spans = tweet.getElementsByTagName("span");
 
@@ -32,11 +28,13 @@ function getTweetText(tweet){
 }
 
 function parseTweets(tweets){
+  // Add the tweets to a set
   var newTweets = new Set();
   for (const tweet of tweets){
     newTweets.add(tweet);
   }
 
+  // Filter any tweets which have already been parsed out of the input tweets
   if (parsedTweets == null){
     parsedTweets = newTweets;
   } else {
@@ -49,19 +47,15 @@ function parseTweets(tweets){
     });
   }
 
+  // Loop through all the new tweets and add their score to the tweetScores map.
   for (tweet of newTweets){
     var text = getTweetText(tweet);
 
     if (!tweetScores.has(text)){
         tweetScores.set(text, null);
         
-        // TODO: Send http request to classify text
-        requestScore(text, function(scores){
-          tweetScores.set(text, scores);
-          console.log(text, tweetScores.get(text));
-        });
-        // TEMP: randomly decide whether to display tweets
-        //tweetScores.set(text, Math.random() > 0.5);
+        // Send http request to classify text and update the mapping to the result of the response
+        requestScore(text);
     }
 
     //document.body.insertAdjacentHTML("beforebegin", "<p>" + text + "</p>");
@@ -135,7 +129,7 @@ function categoryToNumber(category) {
       return 5;
   }
 }
-function requestScore(text, set_score_func){
+function requestScore(text){
     const xhr = new XMLHttpRequest();
     const params = "text=" + text;
 
@@ -152,7 +146,8 @@ function requestScore(text, set_score_func){
           var data = JSON.parse(xhr.responseText);
           //console.log(data);
 
-          set_score_func(data);
+          tweetScores.set(text, data);
+          //console.log(text, tweetScores.get(text));
 
         } else if(xhr.status == 404){
             console.log("Error: No classification recieved!");            
