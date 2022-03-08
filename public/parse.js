@@ -72,8 +72,9 @@ function parseTweets(tweets){
   for (tweet of newTweets){
     var text = getTweetText(tweet);
 
+    // Only send an http request if it isn't already in the map to prevent duplicates.
     if (!tweetScores.has(text)){
-        //tweetScores.set(text, null);
+        tweetScores.set(text, null);
         
         // Send http request to classify text and update the mapping to the result of the response
         requestScore(text);
