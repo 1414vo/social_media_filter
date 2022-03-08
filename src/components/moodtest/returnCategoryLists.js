@@ -2,7 +2,23 @@
 
 //userMood = "happiness"; // MAKE THIS ACTUAL INTERACT WITH OTHER SCRIPTS
 import CategoryType from "../../models/CategoryType";
+
+
+// --------------------------------------------------
+// Description:
+// Generates the primary, secondary, and avoid lists
+// for the front end. This is currently hardcoded in
+// and so can be easily changed as desired, or you
+// could rewrite the function if you wanted to have
+// a more "inteligent" implementation
+//
+// Arguments: String of user's mood
+// Returns: Dictionary of strings labelling lists
+//          corresponding to lists of category enums
+// --------------------------------------------------
+
 export function generateCategoryLists(userMood) {
+    // setup variables
     var primaryList = [];
     var secondaryList = [];
     var avoidList = [];
@@ -10,6 +26,7 @@ export function generateCategoryLists(userMood) {
     var categories = [CategoryType.Politics, CategoryType.Entertainment, CategoryType.Art, CategoryType.Lifestyle , CategoryType.Music, CategoryType.Academic, CategoryType.Comedy, CategoryType.Inspirational, CategoryType.News, CategoryType.Business, CategoryType.Tech, CategoryType.Sports];
 
 
+    // standard set theory intersection function
     function intersection(arr1, arr2) {
         var returnList = [];
         for (const val of arr1) {
@@ -20,6 +37,7 @@ export function generateCategoryLists(userMood) {
         return returnList;
     }
 
+    // standard set theory difference function
     function difference(arr1, arr2) {
         var intersectionSet = intersection(arr1, arr2);
         var differenceSet = [];
@@ -39,6 +57,7 @@ export function generateCategoryLists(userMood) {
         return differenceSet;
     }
 
+    // matches the lists with whatever the current mood is
     switch (userMood) {
         case "anxiety":
             primaryList = [CategoryType.Music, CategoryType.Art, CategoryType.Entertainment, CategoryType.Inspirational];

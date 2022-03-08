@@ -17,6 +17,19 @@ answerList.push(q0);
 q0 = new questionResponse(3, 8);
 answerList.push(q0);
 */
+
+
+
+// ------------------------------------------------
+// Description:
+// This is a function to take in the user's answers
+// to the question number, and then calculate their
+// mood based on this data
+//
+// Arguments: list of question response objects
+// Returns: String of predicted mood
+// ------------------------------------------------
+
 export function predictMood(answerList) {
     var moodDict = {"anxiety": 0, "sadness": 0, "anger": 0, "happiness": 0};
     
