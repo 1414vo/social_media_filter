@@ -1,3 +1,5 @@
+// Main file for implementing the mood test
+
 import $ from 'jquery';
 import {predictMood} from "./MoodPredict.js";
 import {generateCategoryLists} from "./returnCategoryLists.js";
@@ -8,7 +10,7 @@ export default class MoodTest {
     }
 }
 
-// inserts question at end of array
+// Inserts question at end of array
 MoodTest.prototype.add_question = function(question) {
     this.questions.splice(this.questions.length, 0, question);
 }
@@ -30,11 +32,13 @@ MoodTest.prototype.display = function(container) {
       output.innerHTML = this.value;
     }
 
+    // Initialization
     var self = this;
     $('#predicted-mood').hide(); 
     $('#end-page').hide();
     var question_container = $('<div>').attr('id', 'question').insertAfter('#moodtest-name');
   
+    // Manipulates slider and button text when question is changed
     function change_question() {
       self.questions[current_index].display(question_container);
       if (current_index >= 8 && current_index <= 10) { 
@@ -50,14 +54,17 @@ MoodTest.prototype.display = function(container) {
       }
     }
     
+    // Called after the last question is answerd
     function end_test() {
       var predMoodOut = predictMood(answerList);
       var newCategoryList = generateCategoryLists(predMoodOut);
 
+      // Hides parts used for showing questions
       document.getElementById("front-page").style.visibility = "hidden";
       document.getElementById("slider").style.visibility = "hidden";
       document.getElementById("value").style.visibility = "hidden";
-      // You successfully submitted all your answers! Categories have been updated in the other tab.
+      
+      // Different colours and prompts for each mood
       if (predMoodOut == "anxiety") {
         $('#predicted-mood').text('Predicted Mood: Anxiety');
         $('#end-message').text('Some days can contain a lot of stress in them, it’s important to take some time out to relax though. We recommend enjoying something beautiful such as music or art, or maybe taking in something entertaining or inspiring.');
@@ -75,6 +82,8 @@ MoodTest.prototype.display = function(container) {
         $('#end-message').text('It’s great that you’re feeling good! We’ve recommended that you try and use now to take in some news, or maybe engage with something more intellectually challenging such as some political or academic content.');
         updateBackgroundColor("#ffffbf");
       }
+      
+      // Alters display
       $('#next-question').slideUp();
       $('#end-page').slideDown();
       $('#predicted-mood').slideDown();
@@ -88,26 +97,30 @@ MoodTest.prototype.display = function(container) {
       }
     }
     
-    // display intro
+    // Display intro (question 0)
     var current_index = 0;
     var answerList = [];
     change_question();
   
+    // Actions to be taken when the "next question" button is clicked
     $('#next-question').click(function() {
       if (current_index > 0) { 
         console.log(current_index, slider.value);
         answerList.push(new questionResponse(parseInt(slider.value), current_index)); 
       } 
+      // Resets slider values
       slider.value = 10;
       output.innerHTML = 10;
       if (current_index >= 8 && current_index <= 10) { 
         end_test();
       } else {
+        // Choose a random question from specified list and update index
         current_index = self.questions[current_index].next_id[Math.floor(Math.random() * self.questions[current_index].next_id.length)];
         change_question();
       }
     });
 
+    // Actions to be taken when the "restart" button is clicked
     $('#restart').click(function() {
       current_index = 0;
       answerList = [];

@@ -14,6 +14,7 @@ class MoodDisplay extends React.Component<IMoodDisplayProps>{
 
     displayComponent() {
       var component = this;
+      // List of all questions
       const questions = [{
         next_id: [1, 2],
         question: "Answer 4 questions for a better Twitter experience! :)", // Intro
@@ -32,7 +33,7 @@ class MoodDisplay extends React.Component<IMoodDisplayProps>{
       {
         next_id: [5, 6, 7],
         question: "Have you felt energised when trying to work?", // Q3 
-        // alternative: little energy
+        // Alternative: little energy
         description: "1: very tired, 10: extremely energised", 
       },
       {
@@ -56,17 +57,17 @@ class MoodDisplay extends React.Component<IMoodDisplayProps>{
         description: "1: a lot less sociable, 10: a lot more sociable"
       },
       {
-        next_id: [],
+        next_id: [], // Can be the last question
         question: "Do you feel hot in the upper part of your body?", // Q8
         description: "1: not hot at all, 10: extremely hot" 
       },
       {
-        next_id: [],
+        next_id: [], // Can be the last question
         question: "Are your muscles stiff and tight?", // Q9
         description: "1: not stiff and tight at all, 10: extremely stiff and tight", 
       },
       {
-        next_id: [],
+        next_id: [], // Can be the last question
         question: "Are you experiencing a headache or any other kind of pain?", // Q10
         description: "1: no headache or pain at all, 10: very severe headache or pain" 
       },
@@ -76,13 +77,14 @@ class MoodDisplay extends React.Component<IMoodDisplayProps>{
       description: "1: very low, 10: very high"
       },
       {
-        next_id: [],
+        // This question is not included in the mood test but may be useful in the future
+        next_id: [], 
       question: "Now measure your heartbeat for 15 seconds. How many heartbeats did you count?", 
       description: "1: between 1 and 5, 10: between 46 and 50"
       },
     ];
 
-      // main method to create questions and test and display everything
+      // Main method to create questions and test and display everything
       $(document).ready(function() {
         var moodtest = new MoodTest();
         for (var i = 0; i < questions.length; i++) {

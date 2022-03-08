@@ -1,4 +1,5 @@
 import $ from 'jquery';
+// Class for representing a question in the mood test
 export default class Question {
     constructor(next_id, question, description) {
        this.next_id = next_id;
@@ -7,6 +8,7 @@ export default class Question {
     }
   }
   
+  // Append corresponding question prompt and description to a question
   Question.prototype.display = function(container) {
     var question_h2;
     if (container.children('h2').length === 0) {
