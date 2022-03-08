@@ -131,3 +131,4 @@ yarn-error.log*
 /src/backend/Scripts/
 /src/backend/__pycache__/
 .cfg
+/build/
