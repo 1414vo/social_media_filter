@@ -17,6 +17,13 @@ function set_to_json(set){
 chrome.runtime.onInstalled.addListener((details) =>
 {
     console.log("Installed");
+    chrome.storage.sync.get(["time"], (data) => {
+        const x = new Date().getTime();
+        if (x - data.time > 3600000) {
+            notifyUser();
+            chrome.storage.sync.set({"time": x});
+        }
+    });
 });
 
 categoryMap = [];
@@ -27,8 +34,35 @@ avoidList = [];
 self.addEventListener('message', function (msg) {
     console.log(msg.data);
 
+    // Notify user when the last attempt of the mood test is 1 hour ago
+    // and the user is interacting with the extension right now
+    chrome.storage.sync.get(["time"], (data) => {
+        const x = new Date().getTime();
+        if (x - data.time > 3600000) {
+            notifyUser();
+            chrome.storage.sync.set({"time": x});
+        }
+    });
+
+    // For changing background color
     if (msg.data['color']) {
+        console.log("Received color");
         chrome.storage.sync.set({"color": msg.data['color']});
+    }
+    // Message received after user completes mood test
+    if (msg.data['completed']) {
+        chrome.storage.sync.set({"completed": msg.data['completed']});
+        chrome.storage.sync.set({"time": new Date().getTime()});
+    }
+    // ...
+    if (msg.data['return']) {
+        console.log("Waiting");
+        chrome.storage.sync.get(["completed"], (data) => {
+            if (msg.data.length > 0  && data.completed) {
+                msg.data.moodtest.end_test();
+            }
+            console.log("Completed: ", msg);
+        });
     }
     if(msg.data['changeCategory']){
         console.log(msg, msg.data.changeCategory);
@@ -56,3 +90,14 @@ self.addEventListener('message', function (msg) {
     
 });
 
+/**
+ * Creates a Chrome notification and displays it to the user.
+ */
+function notifyUser() {
+    chrome.notifications.create({
+        title: 'Social Media Wellbeing Filter',
+        message: 'You are ready for another mood test',
+        iconUrl: 'images/logo32.png',
+        type: 'basic'
+    })
+}

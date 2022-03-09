@@ -87,7 +87,8 @@ MoodTest.prototype.display = function(container) {
       $('#next-question').slideUp();
       $('#end-page').slideDown();
       $('#predicted-mood').slideDown();
-      
+      navigator.serviceWorker.controller.postMessage({"completed": true});
+
       $('#moodtest').trigger("end", newCategoryList);
     }
 
@@ -97,9 +98,14 @@ MoodTest.prototype.display = function(container) {
       }
     }
     
+    var answerList = [];
+
+    var msg = {"return": true, "moodtest": this, "length": answerList.length};
+    navigator.serviceWorker.controller.postMessage(msg);
+    console.log(msg);
+
     // Display intro (question 0)
     var current_index = 0;
-    var answerList = [];
     change_question();
   
     // Actions to be taken when the "next question" button is clicked
@@ -128,6 +134,7 @@ MoodTest.prototype.display = function(container) {
       document.getElementById("front-page").style.visibility = "visible";
       $('#end-page').hide();
       $('#predicted-mood').hide();
+      navigator.serviceWorker.controller.postMessage({"completed": false});
       change_question();
     });
   }

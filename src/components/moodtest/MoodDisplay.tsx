@@ -125,6 +125,7 @@ class MoodDisplay extends React.Component<IMoodDisplayProps>{
         <div id="end-page">
           <p id="end-message"></p>
           <button id="restart">Try Again</button>
+          <button id="feed">View Categories</button>
         </div>
       </div>);
     }
