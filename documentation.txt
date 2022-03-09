@@ -1,0 +1,71 @@
+﻿Documentation
+
+
+Extension
+
+Summary
+The main part of our project is a Chrome extension users can install in their browser. It allows the user to answer questions then uses their responses to estimate their mood. Based on this, it hints which categories of tweets might be more appropriate to the user and allows them to toggle categories on and off. It then continuously parses the tweets in the user’s twitter feed and sends http requests to a server to classify them. It stores the categories computed from the server’s response then changes the css of tweets to either show or hide them depending on whether their category is toggled on.
+
+Main Files
+Manifest.json
+This is the core file of the Chrome extension. It specifies the name, version, permissions and how other files are used as part of the extension.
+
+Start.js
+This is the “service worker”. It is always running in the background whilst the user has the extension enabled. It handles communication with the user interfaces, the main purpose of which is to save the categories the user enables so that they are accessible to the content script and so they are persistent when the user closes the popup window. It is also used to save the background colour computed by files used for determining user mood. 
+
+Parse.js
+This file is the “content script”. It is run on each instance of twitter the user has opened as soon as they start it and is responsible for parsing the user’s twitter feed, sending http requests for the server to classify the tweets and then modifying tweet css to show/hide them based on the server’s responses.
+
+
+Backend
+
+Summary
+In addition to the Chrome extension, our project uses a python server to handle the http requests made by the extension. The requests give the server the text of a tweet and the server needs to use the text to estimate the category of the tweet and send the result back to the extension. To categorise the tweets, the server uses the “sentence_transformers” library which provides a BERT-like language model fine-tuned on a sentence similarity objective to produce embeddings for whole sentences (not just words). We decided not to finetune this model (due to lack of data and compute), just use the produced embeddings to compute cosine similarity with a small sample set of tweets in each category. This gives each category a score by combining the estimated similarity with each tweet from that category. These scores are then sent in the http response to be used by the Chrome extension. The server functionality is provided by flask. This allows us to provide functions which are called when an http request is received based on the endpoint and method of the request. These functions can read the parameters and headers of the http request then provide a response. We only use one function which listens for “POST” requests on the “/score” endpoint.
+
+Main Files
+
+App.py
+This is the file containing a function which responds to “POST” http requests on the “/score” endpoint. It uses the functionality implemented in “Scorer.py” to compute scores for each category based on the text provided in the http request then sends the result back as an http response using a JSON dictionary.
+
+Scorer.py
+This defines a class “Scorer” which when instantiated initialises a SentenceTransformer model with predetermined text for each category. The object then provides a method which takes input text then determines the similarity between the input text and the predetermined text for each category thus producing an estimate for how well the text fits each category.
+
+
+Requirements
+
+The backend needs to also run the SentenceTransformers library, which can be installed using:
+pip install -U sentence-transformers
+Note: Because PyTorch is a dependency, you need to use a Python version that’s earlier than 3.10. (PyTorch does not support Python 3.10)
+
+
+Frontend
+
+index.tsx
+This is the main body of the popup, which is used as the frontend of the extension. It contains a single component called App.tsx, which contains the primary subcomponents.
+
+App.tsx
+This is the main component of the application. It consists of two parts: (i) a tab row, currently containing buttons for the two tabs and (ii) the questionnaire and the category table. It contains a method for dynamically changing the tab on clicking.
+
+Tab.tsx
+This is a simple tab component located on the top of the popup. It can change its style dynamically depending on whether it is currently clicked or not.
+
+AppContent.tsx
+This component contains the primary functionalities of the frontend. Depending on the tab available, it will either display the questionnaire or the table of category toggle buttons. Upon initialization of the component, it will try to reload any data stored from previous uses of the extension through Chrome’s storage interface. It also provides methods for updating the categories all at once or toggling a single one. Both of them will then try to communicate to the service worker to store the new state.
+
+CategoryBox.tsx
+This component contains a single category display. It can change styles depending on the level of toxicity predicted by the questionnaire, as well as the user’s setting of it. Upon toggling, it will call a certain callback function to register the toggle in AppContent’s state.
+
+MoodDisplay.tsx
+This component contains the main body of the questionnaire, as well as the questions presented in it. It contains methods for interacting with the jQuery environment as well as message passing to parent components.
+
+MoodPredict.js
+This file contains the mapping between answers to the questions and the resulting changes in mood perception by the extension. After all questions have been answered, the function will determine the mood by examining the mood with the largest score.
+
+MoodTest.js
+This file contains the functions for dynamically manipulating the user interface of the questionnaire (also known as mood test). This includes registering which questions the user should answer next, how to restart the attempt, as well as for storing the response. Furthermore, it contains some functionality for implementing one of our stretch goals - changing the background colour of Twitter dependent on the user mood. It selects a colour based on the predicted mood and sends this to the service worker for storage purposes. 
+
+returnCategoryLists.js
+This file contains methods for determining the recommended, secondary and avoid lists of categories, depending on the user’s evaluated mood. It also contains methods for doing the subtraction operation on sets.
+
+backgroundColor.tsx
+This is the main component for changing the background colour of Twitter. The function changeBackgroundColor in this file is called by an instance of App when the tab “Your Feed” is selected. It depends on the changeColor function in the file changeBackgroundColor.tsx to retrieve the colour value from Chrome storage and change the background colour.

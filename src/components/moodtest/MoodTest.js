@@ -97,15 +97,10 @@ MoodTest.prototype.display = function(container) {
         navigator.serviceWorker.controller.postMessage({"color": color});
       }
     }
-    
-    var answerList = [];
-
-    var msg = {"return": true, "moodtest": this, "length": answerList.length};
-    navigator.serviceWorker.controller.postMessage(msg);
-    console.log(msg);
 
     // Display intro (question 0)
     var current_index = 0;
+    var answerList = [];
     change_question();
   
     // Actions to be taken when the "next question" button is clicked

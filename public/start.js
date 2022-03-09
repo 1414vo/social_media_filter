@@ -40,16 +40,6 @@ self.addEventListener('message', function (msg) {
         chrome.storage.sync.set({"completed": msg.data['completed']});
         chrome.storage.sync.set({"time": new Date().getTime()});
     }
-    // ...
-    if (msg.data['return']) {
-        console.log("Waiting");
-        chrome.storage.sync.get(["completed"], (data) => {
-            if (msg.data.length > 0  && data.completed) {
-                msg.data.moodtest.end_test();
-            }
-            console.log("Completed: ", msg);
-        });
-    }
     // If the message has a "changeCategory" entry, update the category map with the categories from the message
     // This ensures it is persistant when the popup/browser closes and allows it to be accessed by the content script ("parse.js")
     if(msg.data['changeCategory']){
