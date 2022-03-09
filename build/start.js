@@ -11,16 +11,16 @@ chrome.runtime.onInstalled.addListener((details) =>
     });
 });
 
-active_categories = new Set();
 categoryMap = [];
 primaryList = [];
 secondaryList = [];
 avoidList = [];
 
+// Message handler function
 self.addEventListener('message', function (msg) {
     console.log(msg.data);
 
-    // Notify user when the last attempt of the mood test is 1 hour ago 
+    // Notify user when the last attempt of the mood test is 1 hour ago
     // and the user is interacting with the extension right now
     chrome.storage.sync.get(["time"], (data) => {
         const x = new Date().getTime();
@@ -50,21 +50,16 @@ self.addEventListener('message', function (msg) {
             console.log("Completed: ", msg);
         });
     }
+    // If the message has a "changeCategory" entry, update the category map with the categories from the message
+    // This ensures it is persistant when the popup/browser closes and allows it to be accessed by the content script ("parse.js")
     if(msg.data['changeCategory']){
         console.log(msg, msg.data.changeCategory);
         categoryMap = Array.from(msg.data.changeCategory);
         this.chrome.storage.sync.set({'categoryMap': categoryMap});
         console.log(categoryMap);
-        active_categories = new Set();
-        /*
-        for(const el of categoryMap){
-            console.log(el);
-            if(el[1]){
-                active_categories.add(el[0]);
-            }
-        }*/
-        console.log(active_categories);
     }
+    // If the message has a "changeLists" entry, update the primary, secondary and avoid lists
+    // This ensures it is persistant when the popup/browser closes. (It is not needed by the content script, only UI).
     if(msg.data['changeLists']) {
         console.log(msg);
         primaryList = msg.data['changeLists'].primaryList;
@@ -76,7 +71,6 @@ self.addEventListener('message', function (msg) {
     
 });
 
-<<<<<<< HEAD
 /**
  * Creates a Chrome notification and displays it to the user.
  */
@@ -88,5 +82,3 @@ function notifyUser() {
         type: 'basic'
     })
 }
-=======
->>>>>>> Tweet-Parsing

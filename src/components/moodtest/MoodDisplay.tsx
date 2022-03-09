@@ -6,6 +6,7 @@ import Question from "./Question";
 
 interface IMoodDisplayProps {
   callback: Function;
+  goToCategories: Function;
 }
 class MoodDisplay extends React.Component<IMoodDisplayProps>{
     constructor(props: IMoodDisplayProps){
@@ -97,6 +98,9 @@ class MoodDisplay extends React.Component<IMoodDisplayProps>{
         $("#moodtest").on('end', function(event, param1) {
           component.props.callback(param1.primaryList, param1.secondaryList, param1.avoidList);
           console.log("here!");
+        });
+        $("#feed").click(function() {
+          component.props.goToCategories();
         });
       });
 

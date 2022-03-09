@@ -6,6 +6,7 @@ import MoodDisplay from './components/moodtest/MoodDisplay';
 
 interface IAppProps {
     tabIndex: number;
+    goToCategories: Function;
 }
 interface IAppState {
     primary_list: CategoryType[];
@@ -149,7 +150,7 @@ class AppContent extends React.Component<IAppProps, IAppState> {
                 </div>
             );
         }else{
-            return (<div><MoodDisplay callback={this.updateCategories}></MoodDisplay></div>);
+            return (<div><MoodDisplay callback={this.updateCategories} goToCategories={this.props.goToCategories}></MoodDisplay></div>);
         }
     }
 }

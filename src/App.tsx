@@ -43,7 +43,7 @@ class App extends React.Component<IAppProps, IAppState> {
           <div onClick={() => this.updateTabIndex(1)} className="Header-tab"><Tab title="Your Feed" isSelected={this.state.tabIndex == 1}></Tab></div>
         </div>
         <div className="App-content">
-            <AppContent tabIndex={this.state.tabIndex}></AppContent>
+            <AppContent tabIndex={this.state.tabIndex} goToCategories={() => this.updateTabIndex(1)}></AppContent>
         </div>
       </div>
     );
