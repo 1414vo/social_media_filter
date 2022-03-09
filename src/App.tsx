@@ -20,6 +20,7 @@ class App extends React.Component<IAppProps, IAppState> {
 
   /**
    * Changes the active tab.
+   * Also changes background color when tab with index 1 is chosen. 
    * @param i The index of the new tab.
    */
   updateTabIndex(i: number) {
