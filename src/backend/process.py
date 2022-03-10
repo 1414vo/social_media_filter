@@ -18,10 +18,14 @@ def read_samples():
 
 
 class Scorer:
-
     def __init__(self):
+        tweets_by_topic = read_samples()
         self.model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-        self.prompt_vectors = {topic: np.array(self.model.encode(prompt)) for (topic, prompt) in prompts.items()}
+        self.prompt_vectors = {
+            topic: np.mean([np.array(self.model.encode(tweet)) for tweet in tweets_of_topic], axis=0)
+            for (topic, tweets_of_topic)
+            in tweets_by_topic.items()
+        }
 
     def score(self, sentence):
         embedding = np.array(self.model.encode(sentence))
